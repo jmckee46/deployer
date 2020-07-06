@@ -1,0 +1,10 @@
+[dn]
+CN=load-balancer
+
+[req]
+distinguished_name = dn
+
+[EXT]
+subjectAltName=DNS:load-balancer
+keyUsage=digitalSignature
+extendedKeyUsage=serverAuth

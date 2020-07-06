@@ -1,0 +1,61 @@
+version: '3.2'
+services:
+
+  health-check:
+    image: myapptest/images-to-deploy/health-check
+    read_only: true
+    env_file: .env
+    # ports:
+    #   - "8090:80"
+
+  http-specs:
+    image: myapptest/images-to-deploy/http-specs
+    env_file: .env
+
+  # ledger-postgres:
+  #   image: postgres:10.4-alpine
+  #   env_file: .env
+  #   # ports:
+  #   #   - "5432:5432"
+
+  # ledger-postgres-client:
+  #   image: postgres:10.4-alpine
+  #   env_file: .env
+  #   environment:
+  #     PGAPPNAME: ledger-postgres-client
+  #   entrypoint:
+  #     - "sh"
+  #     - "-c"
+  #     - "PGUSER=postgres PGPASSWORD=$DE_LEDGER_PGPASSWORD PGHOST=$DE_LEDGER_PGHOST exec psql"
+
+  load-balancer:
+    image: myapptest/docker-compose-only-images/load-balancer
+    env_file: .env
+    ports:
+      - "4040:443"
+      - "4050:80"
+  #     # - "8889:81"
+      - "8890:82"
+    restart: unless-stopped
+
+  migrator:
+    image: myapptest/images-to-deploy/migrator
+    read_only: true
+    env_file: .env
+    environment:
+      PGAPPNAME: migrator
+
+  migrations-postgres:
+    image: postgres:10.4-alpine
+    env_file: .env
+
+  migrations-postgres-client:
+    image: postgres:10.4-alpine
+    env_file: .env
+    environment:
+      PGAPPNAME: migrations-postgres-client
+    entrypoint:
+      - "sh"
+      - "-c"
+      - "PGUSER=postgres PGPASSWORD=$POSTGRES_PASSWORD PGHOST=$DE_MIGRATIONS_PGHOST exec psql"
+

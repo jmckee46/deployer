@@ -1,0 +1,8 @@
+> GET /health-check HTTP/2
+>
+
+< ⧆⧆HTTP/2.?0?⧆ 200 OK
+< Content-Length: ⧆⧆\d+⧆
+< Content-Type: application/json; charset=utf-8
+< Date: ⧆⧆:date⧆
+<
