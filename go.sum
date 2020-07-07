@@ -8,6 +8,8 @@ github.com/halorium/httprouter v0.0.0-20180326174710-cfd8d8d26fd7 h1:Dtbw2sVYJ8A
 github.com/halorium/httprouter v0.0.0-20180326174710-cfd8d8d26fd7/go.mod h1:cTM3lbd4sLEbfLy0zvhhUg3m2dT7y+1bLSdarSMhLz4=
 github.com/halorium/json-iterator v0.0.0-20170614192057-c0ec60f2cee1 h1:w5dDazb7ZPVAlL4ON3uZmx1nwVmmwQVWMRfCDT4Aar4=
 github.com/halorium/json-iterator v0.0.0-20170614192057-c0ec60f2cee1/go.mod h1:olSxEaJO9GL5uqQDm5F0fTsl7LRyjFHMPSaBMYMGLBc=
+github.com/jmckee46/myAppTest v0.0.0-20200706235403-8f521e1d1cba h1:W4GYL1SD/Idg1bk4ZH9uTDo7FP5JQTbzznOEMx+WrkI=
+github.com/jmckee46/myAppTest v0.0.0-20200706235403-8f521e1d1cba/go.mod h1:CtoMOcnWP7/SkZI440QT7ZoP9UrMyW1hOmGTcLA08qo=
 github.com/jmespath/go-jmespath v0.3.0 h1:OS12ieG61fsCg5+qLJ+SsW9NicxNkg3b25OyT2yCeUc=
 github.com/jmespath/go-jmespath v0.3.0/go.mod h1:9QtRXoHjLGCJ5IBSaohpXITPlowMeeYCZ7fLUTSywik=
 github.com/lib/pq v1.7.0 h1:h93mCPfUSkaul3Ka/VG8uZdmW1uMHDGxzu0NWHuJmHY=
