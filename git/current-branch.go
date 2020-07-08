@@ -7,8 +7,14 @@ import (
 	"github.com/jmckee46/deployer/flaw"
 )
 
+// CurrentBranch returns the current git branch
 func CurrentBranch() (string, flaw.Flaw) {
-	branchNameBytes, err := exec.Command("git/current-branch").Output()
+	branchNameBytes, err := exec.Command(
+		"git",
+		"rev-parse",
+		"--abbrev-ref",
+		"HEAD",
+	).Output()
 
 	if err != nil {
 		return "", flaw.From(err).Wrap("cannot CurrentBranch")
