@@ -1,6 +1,7 @@
 package awsfuncs
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/jmckee46/deployer/flaw"
@@ -8,6 +9,7 @@ import (
 
 // CreateCliConfigFile creates the config file for aws
 func CreateCliConfigFile() flaw.Flaw {
+	fmt.Println("creating aws config file...")
 	err := os.MkdirAll(".aws", 0755)
 	if err != nil {
 		return flaw.From(err)

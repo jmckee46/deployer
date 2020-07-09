@@ -26,6 +26,7 @@ func GetDependencies() flaw.Flaw {
 		"github.com/lib/pq",
 		"github.com/jmespath/go-jmespath",
 	)
+
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	err := cmd.Run()

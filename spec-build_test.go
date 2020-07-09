@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jmckee46/deployer/containers"
+	"github.com/jmckee46/deployer/git"
 )
 
 func TestCurrentSha(t *testing.T) {
-	err := containers.Prune()
+	branch, err := git.CurrentBranch()
 	// err := gofuncs.Build("images-to-deploy/health-check")
-
+	fmt.Println("branch:", branch)
 	if err != nil {
 		fmt.Println(err.String())
 	}
