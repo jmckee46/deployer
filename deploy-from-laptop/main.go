@@ -34,4 +34,11 @@ func main() {
 	if err != nil {
 		logger.Panic("travis-ci-install", flaw.From(err))
 	}
+
+	// initialize certbot-env
+	flawErr = initCertbotEnv()
+	if flawErr != nil {
+		logger.Panic("travis-ci-install", flawErr)
+	}
+
 }

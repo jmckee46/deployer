@@ -17,7 +17,6 @@ func GetDependencies() flaw.Flaw {
 	cmd := exec.Command(
 		"go",
 		"get",
-		"-u",
 		"github.com/alecthomas/gometalinter",
 		"github.com/aws/aws-sdk-go/aws",
 		"github.com/gocarina/gocsv",

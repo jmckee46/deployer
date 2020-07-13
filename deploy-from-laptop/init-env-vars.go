@@ -147,8 +147,11 @@ func branchHash() string {
 func stackName() string {
 	deGitBranch := os.Getenv("DE_GIT_BRANCH")
 	deGitBranchHash := os.Getenv("DE_GIT_BRANCH_HASH")
+	if len(deGitBranch) > 8 {
+		return deGitBranch[0:8] + "-" + deGitBranchHash[0:4]
+	}
 
-	return deGitBranch[0:8] + "-" + deGitBranchHash[0:4]
+	return deGitBranch + "-" + deGitBranchHash[0:4]
 }
 
 func loadBalancerHostname() string {
