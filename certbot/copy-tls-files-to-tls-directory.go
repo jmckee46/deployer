@@ -1,6 +1,8 @@
 package certbot
 
 import (
+	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 
@@ -37,6 +39,66 @@ func CopyTLSFilesToTLSDirectory() flaw.Flaw {
 	_, flawErr = osfuncs.CopyFile(certbotPrivkeyPem, "tls/files/private-key.pem")
 	if flawErr != nil {
 		return flawErr
+	}
+
+	// create certificate-chain.pem from cert.pem and chain.pem
+	flawErr = createCertificateChain(certbotCertPem, certbotChainPem)
+	if flawErr != nil {
+		return flawErr
+	}
+
+	return nil
+}
+
+func createCertificateChain(certbotCertPem string, certbotChainPem string) flaw.Flaw {
+	// make sure source files exist and are regular
+	certbotCertPemStat, err := os.Stat(certbotCertPem)
+	if err != nil {
+		return flaw.From(err)
+	}
+
+	if !certbotCertPemStat.Mode().IsRegular() {
+		info := fmt.Sprintf("%s is not a regular file", certbotCertPem)
+		return flaw.New(info)
+	}
+
+	certbotChainPemStat, err := os.Stat(certbotChainPem)
+	if err != nil {
+		return flaw.From(err)
+	}
+
+	if !certbotChainPemStat.Mode().IsRegular() {
+		info := fmt.Sprintf("%s is not a regular file", certbotChainPem)
+		return flaw.New(info)
+	}
+
+	// copy both files to tls/files/certificat-chain.pem
+	destination, err := os.Create("tls/files/certificat-chain.pem")
+	if err != nil {
+		return flaw.From(err)
+	}
+	defer destination.Close()
+
+	certPem, err := os.Open(certbotCertPem)
+	if err != nil {
+		return flaw.From(err)
+	}
+	defer certPem.Close()
+
+	_, err = io.Copy(destination, certPem)
+	if err != nil {
+		return flaw.From(err)
+	}
+
+	chainPem, err := os.Open(certbotChainPem)
+	if err != nil {
+		return flaw.From(err)
+	}
+	defer chainPem.Close()
+
+	_, err = io.Copy(destination, chainPem)
+	if err != nil {
+		return flaw.From(err)
 	}
 
 	return nil
