@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/jmckee46/deployer/certbot"
+
 	awsfuncs "github.com/jmckee46/deployer/aws"
 	"github.com/jmckee46/deployer/flaw"
 	"github.com/jmckee46/deployer/logger"
@@ -36,9 +38,8 @@ func main() {
 	}
 
 	// initialize certbot-env
-	flawErr = initCertbotEnv()
+	flawErr = certbot.GetTLSFilesFromLetsencrypt()
 	if flawErr != nil {
 		logger.Panic("travis-ci-install", flawErr)
 	}
-
 }

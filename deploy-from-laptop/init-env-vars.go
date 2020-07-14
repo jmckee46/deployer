@@ -60,7 +60,11 @@ func initEnvVars() flaw.Flaw {
 	if err != nil {
 		return flaw.From(err)
 	}
-	err = os.Setenv("DE_DOMAIN", "myAppTest.com")
+	err = os.Setenv("DE_DOMAIN", "myAppTest.net")
+	if err != nil {
+		return flaw.From(err)
+	}
+	err = os.Setenv("DE_EMAIL", "jmckee3@mac.com")
 	if err != nil {
 		return flaw.From(err)
 	}
@@ -96,7 +100,7 @@ func initEnvVars() flaw.Flaw {
 	if err != nil {
 		return flaw.From(err)
 	}
-	err = os.Setenv("HOSTED_ZONE_ID", "/hostedzone/xxxxxxxxxxxxxx")
+	err = os.Setenv("HOSTED_ZONE_ID", "/hostedzone/Z015966636UQ1OFVQD7CA")
 	if err != nil {
 		return flaw.From(err)
 	}
@@ -180,7 +184,7 @@ func stackBucket() string {
 - ARTIFACTS_SECRET=$AWS_SECRET_ACCESS_KEY
 - DE_ARTIFACTS_PATH=$ARTIFACTS_PATH
 - DE_CI=true
-- DE_DOMAIN=myAppTest.com
+- DE_DOMAIN=myAppTest.net
 - DE_LOGGLY_TOKEN=
 - DE_LOG_COLORIZATION=false
 - DE_LOG_SERIALIZATION=json-compact

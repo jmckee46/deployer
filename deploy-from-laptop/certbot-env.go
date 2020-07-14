@@ -1,45 +1,54 @@
 package main
 
 import (
-	"fmt"
-	"os/exec"
-
 	"github.com/jmckee46/deployer/flaw"
 )
 
 func initCertbotEnv() flaw.Flaw {
 	// set up cerbot-env
-	certbotBytes, err := exec.Command(
-		"/bin/sh",
-		"-c",
-		"virtualenv",
-		"certbot-env",
-		"source",
-		"certbot-env/bin/activate",
-	).Output()
-
-	fmt.Println("certbotString:", string(certbotBytes))
-	if err != nil {
-		return flaw.From(err).Wrap("cannot set up certbot")
-	}
-
-	// // add local directory to $PATH to facilitte activation
-	// err = os.Setenv("PATH", os.Getenv("PATH")+":"+os.Getenv("PWD"))
-	// if err != nil {
-	// 	return flaw.From(err).Wrap("cannot set up certbot")
-	// }
-	// fmt.Println("path:", os.Getenv("PATH"))
-
-	// // activate certbot-env
-	// certbotBytes, err = exec.Command(
-	// 	"ls",
-	// 	// "certbot-env/bin/activate",
+	// certbotBytes, err := exec.Command(
+	// 	"certbot",
+	// 	"certonly",
+	// 	"--dns-route53",
+	// 	"--agree-tos",
+	// 	"--config-dir",
+	// 	"certbot/files",
+	// 	"--domains",
+	// 	"myapptest.net",
+	// 	"--domains",
+	// 	"*.myapptest.net",
+	// 	"--email",
+	// 	"jmckee3@mac.com",
+	// 	"--logs-dir",
+	// 	"certbot/log-files",
+	// 	"--no-eff-email",
+	// 	"--preferred-challenges",
+	// 	"dns",
+	// 	"--renew-by-default",
+	// 	"--work-dir",
+	// 	"work-dir",
+	// 	"--test-cert",
 	// ).Output()
 
-	// fmt.Println("certbotString3:", string(certbotBytes))
+	// fmt.Println("certbotString:", string(certbotBytes))
 	// if err != nil {
 	// 	return flaw.From(err).Wrap("cannot set up certbot")
 	// }
+
+	// certbot
+	//   certonly
+	//     --dns-route53
+	//     --agree-tos
+	//     --config-dir certbot/files
+	//     --domains myapptest.net
+	//     --domains *.myapptest.net
+	//     --email jmckee3@mac.com
+	//     --logs-dir certbot/log-files
+	//     --no-eff-email
+	//     --preferred-challenges dns
+	//     --renew-by-default
+	//     --work-dir work-dir
+	//     --test-cert
 
 	return nil
 }
