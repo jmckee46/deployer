@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jmckee46/deployer/git"
+	"github.com/jmckee46/deployer/certbot"
 )
 
 func TestCurrentSha(t *testing.T) {
-	branch, err := git.CurrentBranch()
+	err := certbot.CopyTLSFilesToTLSDirectory()
 	// err := gofuncs.Build("images-to-deploy/health-check")
-	fmt.Println("branch:", branch)
+	// fmt.Println("branch:", branch)
 	if err != nil {
 		fmt.Println(err.String())
 	}

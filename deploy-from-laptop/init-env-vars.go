@@ -32,7 +32,7 @@ func initEnvVars() flaw.Flaw {
 	if err != nil {
 		return flaw.From(err)
 	}
-	err = os.Setenv("ARTIFACTS_BUCKET", "deployer.global")
+	err = os.Setenv("ARTIFACTS_BUCKET", "deployer.root")
 	if err != nil {
 		return flaw.From(err)
 	}
@@ -88,7 +88,7 @@ func initEnvVars() flaw.Flaw {
 	if err != nil {
 		return flaw.From(err)
 	}
-	err = os.Setenv("DE_GLOBAL_BUCKET", os.Getenv("ARTIFACTS_BUCKET"))
+	err = os.Setenv("DE_ROOT_BUCKET", os.Getenv("ARTIFACTS_BUCKET"))
 	if err != nil {
 		return flaw.From(err)
 	}
@@ -177,7 +177,7 @@ func stackBucket() string {
 - AWS_REGION=us-west-2
 - AWS_DEFAULT_REGION=$AWS_REGION
 # the following ARTIFACTS_* environment variables are out of sort order due to dependencies on AWS_* environment variables.
-- ARTIFACTS_BUCKET=deployer.global
+- ARTIFACTS_BUCKET=deployer.root
 - ARTIFACTS_KEY=$AWS_ACCESS_KEY_ID
 - ARTIFACTS_PATH=artifacts
 - ARTIFACTS_REGION=$AWS_REGION
