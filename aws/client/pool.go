@@ -6,6 +6,7 @@ var pool []*Client
 
 var mutex = &sync.Mutex{}
 
+// FromPool provides an aws client from the pool
 func FromPool() *Client {
 	if len(pool) == 0 {
 		return new()
@@ -20,6 +21,7 @@ func FromPool() *Client {
 	return client
 }
 
+// ToPool returns an aws client to the pool
 func ToPool(client *Client) {
 	mutex.Lock()
 	pool = append(pool, client) // push

@@ -1,24 +1,17 @@
 package awsclient
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sns"
-	"github.com/aws/aws-sdk-go/service/sqs"
-	"github.com/jmckee46/deployer/aws/http-signing-client"
-	"github.com/jmckee46/deployer/env-vars"
+	"github.com/aws/aws-sdk-go/service/cloudformation"
+	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/jmckee46/deployer/flaw"
 	"github.com/jmckee46/deployer/halt"
-	"github.com/jmckee46/deployer/http-client"
 	"github.com/jmckee46/deployer/logger"
 )
 
 type Client struct {
-	Creds      *awshttpsigningclient.Credentials
-	HTTPClient *httpclient.Client
-	SNS        *sns.SNS
-	SQS        *sqs.SQS
+	Cloudform *cloudformation.CloudFormation
+	S3        *s3.S3
 }
 
 func new() *Client {
@@ -26,59 +19,12 @@ func new() *Client {
 
 	var client *Client
 
-	if envvars.Mocked {
-		client = &Client{
-			HTTPClient: httpclient.New(),
-			SNS:        localSNSService(),
-			SQS:        localSQSService(),
-		}
-	} else {
-		httpClient, creds := awshttpsigningclient.New()
-
-		client = &Client{
-			Creds:      creds,
-			HTTPClient: httpClient,
-			SNS:        awsSNSService(),
-			SQS:        awsSQSService(),
-		}
+	client = &Client{
+		Cloudform: cloudformation.New(awsSession()),
+		S3:        s3.New(awsSession()),
 	}
 
 	return client
-}
-
-func localSNSService() *sns.SNS {
-	return sns.New(localSession())
-}
-
-func awsSNSService() *sns.SNS {
-	return sns.New(awsSession())
-}
-
-func localSQSService() *sqs.SQS {
-	return sqs.New(localSession())
-}
-
-func awsSQSService() *sqs.SQS {
-	return sqs.New(awsSession())
-}
-
-func localSession() *session.Session {
-	creds := credentials.NewEnvCredentials()
-
-	configs := &aws.Config{
-		Credentials: creds,
-		Region:      aws.String(envvars.AwsRegion),
-		DisableSSL:  aws.Bool(envvars.Mocked),
-		Endpoint:    aws.String(envvars.AwsEndpoint),
-	}
-
-	sess, err := session.NewSession(configs)
-
-	if err != nil {
-		logger.Panic("awsclient-local-session", flaw.From(err))
-	}
-
-	return sess
 }
 
 func awsSession() *session.Session {
