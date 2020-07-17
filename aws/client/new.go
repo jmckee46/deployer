@@ -2,6 +2,7 @@ package awsclient
 
 import (
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/acm"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/jmckee46/deployer/flaw"
@@ -12,6 +13,7 @@ import (
 type Client struct {
 	Cloudform *cloudformation.CloudFormation
 	S3        *s3.S3
+	ACM       *acm.ACM
 }
 
 func new() *Client {
@@ -22,6 +24,7 @@ func new() *Client {
 	client = &Client{
 		Cloudform: cloudformation.New(awsSession()),
 		S3:        s3.New(awsSession()),
+		ACM:       acm.New(awsSession()),
 	}
 
 	return client
