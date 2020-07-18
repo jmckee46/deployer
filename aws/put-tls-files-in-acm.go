@@ -7,9 +7,8 @@ import (
 
 	"github.com/aws/aws-sdk-go/service/acm"
 	"github.com/jmckee46/deployer/aws/client"
-	"github.com/jmckee46/deployer/logger"
-
 	"github.com/jmckee46/deployer/flaw"
+	"github.com/jmckee46/deployer/logger"
 )
 
 // PutTLSFilesInACM imports the tls files to aws ACM
@@ -24,15 +23,19 @@ func PutTLSFilesInACM() flaw.Flaw {
 	stackInput := &acm.ImportCertificateInput{
 		Certificate:      certToByte("tls/files/certificate.pem"),
 		CertificateChain: certToByte("tls/files/chain.pem"),
-		PrivateKey:       certToByte("fls/files/privat-key.pem"),
+		PrivateKey:       certToByte("tls/files/private-key.pem"),
 	}
 
 	// import the certificates
 	stackOutput, err := awsAcm.ImportCertificate(stackInput)
-	fmt.Println("stackOutput:", stackOutput)
+	// fmt.Println("arn:", *stackOutput.CertificateArn)
 	if err != nil {
-		fmt.Println("err:", err)
-		logger.Panic("create-root-stack", err)
+		return flaw.From(err)
+	}
+
+	flawErr := putARNInTLS(*stackOutput.CertificateArn)
+	if err != nil {
+		return flawErr
 	}
 
 	return nil
@@ -52,4 +55,24 @@ func certToByte(fileName string) []byte {
 	}
 
 	return b
+}
+
+func putARNInTLS(arn string) flaw.Flaw {
+	f, err := os.Create("tls/files/acm-certificate-arn")
+	if err != nil {
+		return flaw.From(err)
+	}
+
+	_, err = f.WriteString(arn)
+	if err != nil {
+		f.Close()
+		return flaw.From(err)
+	}
+
+	err = f.Close()
+	if err != nil {
+		return flaw.From(err)
+	}
+
+	return nil
 }

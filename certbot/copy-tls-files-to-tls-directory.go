@@ -73,7 +73,7 @@ func createCertificateChain(certbotCertPem string, certbotChainPem string) flaw.
 	}
 
 	// copy both files to tls/files/certificat-chain.pem
-	destination, err := os.Create("tls/files/certificat-chain.pem")
+	destination, err := os.Create("tls/files/certificate-chain.pem")
 	if err != nil {
 		return flaw.From(err)
 	}
