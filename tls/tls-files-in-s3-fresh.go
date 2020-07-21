@@ -7,16 +7,15 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/jmckee46/deployer/aws/client"
 	"github.com/jmckee46/deployer/logger"
 )
 
-func tlsFilesInS3Fresh() bool {
+func tlsFilesInS3Fresh(state *state) bool {
 	fmt.Println("checking tls files in S3 are fresh...")
 	fmt.Println("")
 
 	// get aws client
-	awsS3 := awsclient.FromPool().S3
+	awsS3 := state.S3Cli
 
 	prefix := os.Getenv("DE_GIT_BRANCH") + "/tls"
 
@@ -54,6 +53,8 @@ func tlsFilesInS3Fresh() bool {
 
 	sevenDaysAgo := time.Now().AddDate(0, 0, -7)
 
+	THIS NEEDS TO CHECK THAT EACH FILE IS GOOD NOT IF ONE IS STALE...
+	
 	if acmCertificateArn.After(sevenDaysAgo) ||
 		certificateChain.After(sevenDaysAgo) ||
 		certificate.After(sevenDaysAgo) ||
