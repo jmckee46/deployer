@@ -1,6 +1,7 @@
 package tlsDeployer
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -24,6 +25,7 @@ func TestTLSFilesInS3FreshWithFreshCerts(t *testing.T) {
 	state := &state{
 		S3Cli: &mockS3{},
 	}
+	fmt.Printf("S3Cli: %+v\n", state.S3Cli)
 
 	listObjectsV2Function = func(input *s3.ListObjectsV2Input) (*s3.ListObjectsV2Output, error) {
 		object1 := &s3.Object{

@@ -14,7 +14,7 @@ func getTLSFilesFromS3(state *state) flaw.Flaw {
 	// downloader := s3manager.NewDownloaderWithClient(state.S3Cli)
 
 	// create file to write to
-
+	// FINISH DOWN LOADING FILES...
 	// write contents of s3 object to file
 
 	return nil
