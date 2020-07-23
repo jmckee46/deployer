@@ -6,11 +6,14 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3iface"
 )
 
 var listObjectsV2Function func(input *s3.ListObjectsV2Input) (*s3.ListObjectsV2Output, error)
 
-type mockS3 struct{}
+type mockS3 struct {
+	s3iface.S3API
+}
 
 func (m *mockS3) ListObjectsV2(input *s3.ListObjectsV2Input) (*s3.ListObjectsV2Output, error) {
 	return listObjectsV2Function(input)
