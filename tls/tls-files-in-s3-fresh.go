@@ -10,6 +10,7 @@ import (
 	"github.com/jmckee46/deployer/logger"
 )
 
+// checks all files are present and all are fresh - should return true
 func tlsFilesInS3Fresh(state *state) bool {
 	fmt.Println("checking tls files in S3 are fresh...")
 	fmt.Println("")
@@ -17,7 +18,7 @@ func tlsFilesInS3Fresh(state *state) bool {
 	// get aws client
 	awsS3 := state.S3Cli
 
-	prefix := os.Getenv("DE_GIT_BRANCH") + "/tls"
+	prefix := os.Getenv("DE_GIT_BRANCH") + "/tls/"
 
 	input := &s3.ListObjectsV2Input{
 		Bucket: aws.String(os.Getenv("DE_ROOT_BUCKET")),
@@ -31,7 +32,7 @@ func tlsFilesInS3Fresh(state *state) bool {
 
 	var acmCertificateArn, certificateChain, certificate, chain, privateKey time.Time
 
-	if len(resp.Contents) < 1 {
+	if resp.Contents == nil {
 		fmt.Println("tls files are not in s3...")
 		return false
 	}
@@ -46,26 +47,24 @@ func tlsFilesInS3Fresh(state *state) bool {
 			certificate = *item.LastModified
 		case prefix + "chain.pem":
 			chain = *item.LastModified
-		case prefix + "private - key.pem":
+		case prefix + "private-key.pem":
 			privateKey = *item.LastModified
 		}
 	}
 
-	sevenDaysAgo := time.Now().AddDate(0, 0, -7)
+	sevenDaysAgo := time.Now().UTC().AddDate(0, 0, -7)
 
-	THIS NEEDS TO CHECK THAT EACH FILE IS GOOD NOT IF ONE IS STALE...
-	
-	if acmCertificateArn.After(sevenDaysAgo) ||
-		certificateChain.After(sevenDaysAgo) ||
-		certificate.After(sevenDaysAgo) ||
-		chain.After(sevenDaysAgo) ||
+	if acmCertificateArn.After(sevenDaysAgo) &&
+		certificateChain.After(sevenDaysAgo) &&
+		certificate.After(sevenDaysAgo) &&
+		chain.After(sevenDaysAgo) &&
 		privateKey.After(sevenDaysAgo) {
 
-		fmt.Println("tls files in s3 are stale...")
-		return false
+		fmt.Println("tls files in s3 are fresh...")
+		return true
 	}
 
-	fmt.Println("tls files in s3 are fresh...")
+	fmt.Println("tls files in s3 are stale or incomplete...")
 
-	return true
+	return false
 }
