@@ -13,7 +13,6 @@ import (
 // checks all files are present and all are fresh - should return true
 func tlsFilesInS3Fresh(state *state) bool {
 	fmt.Println("checking tls files in S3 are fresh...")
-	fmt.Println("")
 
 	// get aws client
 	awsS3 := state.S3Cli

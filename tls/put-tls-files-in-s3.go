@@ -14,7 +14,6 @@ import (
 // PutTLSFilesInS3 uploads local TLS files to S3
 func PutTLSFilesInS3() flaw.Flaw {
 	fmt.Println("putting tls files in S3...")
-	fmt.Println("")
 
 	// get aws client
 	awsS3 := awsclient.FromPool().S3

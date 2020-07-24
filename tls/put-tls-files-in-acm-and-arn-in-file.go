@@ -14,7 +14,6 @@ import (
 // PutTLSFilesInACM imports the tls files to aws ACM
 func PutTLSFilesInACMAndARNInFile() flaw.Flaw {
 	fmt.Println("putting tls files in acm...")
-	fmt.Println("")
 
 	// get aws client
 	awsAcm := awsclient.FromPool().ACM

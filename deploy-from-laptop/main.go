@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jmckee46/deployer/certbot"
+	"github.com/jmckee46/deployer/tls"
 
 	awsfuncs "github.com/jmckee46/deployer/aws"
 	"github.com/jmckee46/deployer/flaw"
@@ -12,14 +12,8 @@ import (
 )
 
 func main() {
-	// set up env-vars
-	flawErr := initEnvVars()
-	if flawErr != nil {
-		logger.Panic("travis-ci-install", flawErr)
-	}
-
 	// create aws config file
-	flawErr = awsfuncs.CreateCliConfigFile()
+	flawErr := awsfuncs.CreateCliConfigFile()
 	if flawErr != nil {
 		logger.Panic("travis-ci-install", flawErr)
 	}
@@ -37,8 +31,8 @@ func main() {
 		logger.Panic("travis-ci-install", flaw.From(err))
 	}
 
-	// initialize certbot-env
-	flawErr = certbot.GetTLSFilesFromLetsencrypt()
+	// manage tls files
+	flawErr = tlsDeployer.ManageFiles()
 	if flawErr != nil {
 		logger.Panic("travis-ci-install", flawErr)
 	}
