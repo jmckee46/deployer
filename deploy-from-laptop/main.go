@@ -36,4 +36,10 @@ func main() {
 	if flawErr != nil {
 		logger.Panic("travis-ci-install", flawErr)
 	}
+
+	// clean up
+	flawErr = Cleanup()
+	if flawErr != nil {
+		logger.Panic("travis-ci-install", flawErr)
+	}
 }
