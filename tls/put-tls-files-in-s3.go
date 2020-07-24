@@ -1,4 +1,4 @@
-package awsfuncs
+package tlsDeployer
 
 import (
 	"fmt"

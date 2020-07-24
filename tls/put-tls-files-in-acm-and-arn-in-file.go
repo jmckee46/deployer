@@ -1,4 +1,4 @@
-package awsfuncs
+package tlsDeployer
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ import (
 )
 
 // PutTLSFilesInACM imports the tls files to aws ACM
-func PutTLSFilesInACM() flaw.Flaw {
+func PutTLSFilesInACMAndARNInFile() flaw.Flaw {
 	fmt.Println("putting tls files in acm...")
 	fmt.Println("")
 
