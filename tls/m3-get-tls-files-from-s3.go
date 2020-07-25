@@ -26,13 +26,19 @@ func getTLSFilesFromS3(state *state) flaw.Flaw {
 	s3Prefix := os.Getenv("DE_GIT_BRANCH") + "/tls/"
 	localPrefix := "tls/files/"
 
+	// ensure directory exists
+	err := os.MkdirAll(localPrefix, 0755)
+	if err != nil {
+		return flaw.From(err)
+	}
+
 	for _, filename := range filesToDownload {
 		s3FileName := s3Prefix + filename
 		localFilename := localPrefix + filename
 
-		err := getFile(downloader, s3FileName, localFilename)
-		if err != nil {
-			return err
+		flawErr := getFile(downloader, s3FileName, localFilename)
+		if flawErr != nil {
+			return flawErr
 		}
 
 	}

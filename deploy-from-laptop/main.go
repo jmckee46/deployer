@@ -13,7 +13,6 @@ import (
 
 func main() {
 	// create aws config file
-	fmt.Println("creating aws config file...")
 	flawErr := awsfuncs.CreateCliConfigFile()
 	if flawErr != nil {
 		logger.Panic("travis-ci-install", flawErr)
