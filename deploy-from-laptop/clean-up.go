@@ -6,25 +6,17 @@ import (
 )
 
 func Cleanup() flaw.Flaw {
-	err := osfuncs.DeleteDirAndFiles(".aws")
-	if err != nil {
-		return err
-	}
+	// ok to fail if not there
+	osfuncs.DeleteDirAndFiles(".aws")
 
-	err = osfuncs.DeleteDirAndFiles("certbot/files")
-	if err != nil {
-		return err
-	}
+	// ok to fail if not there
+	osfuncs.DeleteDirAndFiles("certbot/files")
 
-	err = osfuncs.DeleteDirAndFiles("certbot/log-files")
-	if err != nil {
-		return err
-	}
+	// ok to fail if not there
+	osfuncs.DeleteDirAndFiles("certbot/log-files")
 
-	err = osfuncs.DeleteDirAndFiles("tls/files")
-	if err != nil {
-		return err
-	}
+	// ok to fail if not there
+	osfuncs.DeleteDirAndFiles("tls/files")
 
 	return nil
 }
