@@ -13,6 +13,7 @@ import (
 
 func main() {
 	// create aws config file
+	fmt.Println("creating aws config file...")
 	flawErr := awsfuncs.CreateCliConfigFile()
 	if flawErr != nil {
 		logger.Panic("travis-ci-install", flawErr)
@@ -25,7 +26,7 @@ func main() {
 	// }
 
 	// create artifacts directory
-	fmt.Println("creating artifacts directory")
+	fmt.Println("creating artifacts directory...")
 	err := os.MkdirAll(os.Getenv("DE_ARTIFACTS_PATH"), 0755)
 	if err != nil {
 		logger.Panic("travis-ci-install", flaw.From(err))

@@ -13,7 +13,7 @@ import (
 
 // PutTLSFilesInS3 uploads local TLS files to S3
 func PutTLSFilesInS3() flaw.Flaw {
-	fmt.Println("putting tls files in S3...")
+	fmt.Println("  putting tls files in S3...")
 
 	// get aws client
 	awsS3 := awsclient.FromPool().S3
@@ -24,7 +24,6 @@ func PutTLSFilesInS3() flaw.Flaw {
 	// read tls/files directory
 	filesToUpload, err := readDir("tls/files/")
 	if err != nil {
-		fmt.Println("dir err:", err)
 		return flaw.From(err)
 	}
 
@@ -39,7 +38,6 @@ func PutTLSFilesInS3() flaw.Flaw {
 func uploadFile(uploader *s3manager.Uploader, filename string) flaw.Flaw {
 	file, err := os.Open("tls/files/" + filename)
 	if err != nil {
-		fmt.Println("file err:", err)
 		return flaw.From(err)
 	}
 
@@ -54,9 +52,7 @@ func uploadFile(uploader *s3manager.Uploader, filename string) flaw.Flaw {
 
 	// upload the file
 	_, err = uploader.Upload(input)
-	// fmt.Println("Result:", result)
 	if err != nil {
-		// fmt.Println("err:", err)
 		return flaw.From(err)
 	}
 

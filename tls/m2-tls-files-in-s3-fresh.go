@@ -12,7 +12,7 @@ import (
 
 // checks all files are present and all are fresh - should return true
 func tlsFilesInS3Fresh(state *state) bool {
-	fmt.Println("checking tls files in S3 are fresh...")
+	fmt.Println("  checking tls files in S3 are fresh...")
 
 	// get aws client
 	awsS3 := state.S3Cli
@@ -32,7 +32,7 @@ func tlsFilesInS3Fresh(state *state) bool {
 	var acmCertificateArn, certificateChain, certificate, chain, privateKey time.Time
 
 	if resp.Contents == nil {
-		fmt.Println("tls files are not in s3...")
+		fmt.Println("  tls files are not in s3...")
 		return false
 	}
 
@@ -59,11 +59,11 @@ func tlsFilesInS3Fresh(state *state) bool {
 		chain.After(sevenDaysAgo) &&
 		privateKey.After(sevenDaysAgo) {
 
-		fmt.Println("tls files in s3 are fresh...")
+		fmt.Println("  tls files in s3 are fresh...")
 		return true
 	}
 
-	fmt.Println("tls files in s3 are stale or incomplete...")
+	fmt.Println("  tls files in s3 are stale or incomplete...")
 
 	return false
 }

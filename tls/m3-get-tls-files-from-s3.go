@@ -11,7 +11,7 @@ import (
 )
 
 func getTLSFilesFromS3(state *state) flaw.Flaw {
-	fmt.Println("getting tls files from S3...")
+	fmt.Println("  getting tls files from S3...")
 
 	downloader := s3manager.NewDownloaderWithClient(state.S3Cli)
 
