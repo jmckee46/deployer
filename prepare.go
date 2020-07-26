@@ -11,7 +11,7 @@ import (
 	"github.com/jmckee46/deployer/logger"
 )
 
-func crank() {
+func prepare() {
 	// Get current working directory
 	curDir, err := os.Getwd()
 	if err != nil {
@@ -19,8 +19,8 @@ func crank() {
 	}
 	curDir = curDir + "/"
 
-	// check for crank/main.go
-	filePath := curDir + "crank/main.go"
+	// check for prepare/main.go
+	filePath := curDir + "prepare/main.go"
 	if fileExists(filePath) {
 		cmd := exec.Command("go", "run", filePath)
 		stdout, err := cmd.StdoutPipe()

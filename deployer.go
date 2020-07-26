@@ -12,19 +12,19 @@ func main() {
 	switch os.Args[1] {
 	case "build":
 		build()
-	case "crank":
-		crank()
 	case "init":
 		initNewDirectory()
+	case "prepare":
+		prepare()
+	case "prune":
+		images.Prune()
+		containers.Prune()
 	case "start":
 		start()
 	case "stop":
 		stop()
 	case "test":
 		test()
-	case "prune":
-		images.Prune()
-		containers.Prune()
 	default:
 		os.Exit(1)
 	}
