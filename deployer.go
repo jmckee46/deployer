@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/jmckee46/deployer/containers"
+	"github.com/jmckee46/deployer/deploy-from-laptop"
 	"github.com/jmckee46/deployer/images"
 )
 
@@ -12,6 +13,8 @@ func main() {
 	switch os.Args[1] {
 	case "build":
 		build()
+	case "deploy-from-laptop":
+		deployLaptop.DeployFromLaptop()
 	case "init":
 		initNewDirectory()
 	case "prepare":

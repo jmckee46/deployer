@@ -1,4 +1,4 @@
-package main
+package deployLaptop
 
 import (
 	"github.com/jmckee46/deployer/flaw"

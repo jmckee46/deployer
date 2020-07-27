@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jmckee46/deployer/tls"
+	"github.com/jmckee46/deployer/env-vars"
 )
 
 func TestCurrentSha(t *testing.T) {
 	// err := awsfuncs.GetTlsFilesFromS3()
-	err := tlsDeployer.ManageFiles()
+	err := envvars.ValidateDeploymentEnvVars()
 	if err != nil {
 		fmt.Println(err.String())
 	}
