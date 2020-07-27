@@ -6,11 +6,23 @@ import (
 )
 
 func DeployFromLaptop() {
-	// initialize the environment
-	flawErr := InitializeEnvironment()
+	// TravisCIInstall
+	flawErr := TravisCIInstall()
 	if flawErr != nil {
 		logger.Panic("deploy-from-laptop", flawErr)
 	}
+
+	// manage tls files
+	flawErr = tlsDeployer.ManageFiles()
+	if flawErr != nil {
+		logger.Panic("deploy-from-laptop", flawErr)
+	}
+
+	// // prepare to deploy - builds and tests docker images
+	// flawErr = prepare()
+	// if flawErr != nil {
+	// 	logger.Panic("deploy-from-laptop", flawErr)
+	// }
 
 	// deploy
 	flawErr = awsfuncs.Deploy()

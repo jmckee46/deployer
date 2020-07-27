@@ -15,7 +15,7 @@ func prepare() {
 	// Get current working directory
 	curDir, err := os.Getwd()
 	if err != nil {
-		logger.Panic("initNewDirectory", flaw.From(err))
+		logger.Panic("prepare", flaw.From(err))
 	}
 	curDir = curDir + "/"
 
