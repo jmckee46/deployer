@@ -1,0 +1,39 @@
+{{{define "migrator"}}}
+"MigratorServiceTask": {
+  "DependsOn": [
+    "TaskPolicy"
+  ],
+  "Type": "AWS::ECS::TaskDefinition",
+  "Properties": {
+    "ContainerDefinitions": [
+      {
+        "DockerSecurityOptions": [
+          "no-new-privileges"
+        ],
+        "Environment": [
+          {{{ template "environment" }}}
+        ],
+        "Essential": true,
+        "Image": {
+          "Fn::Sub": "${SlDockerRegistry}/${SlStackName}-migrator:${SlGitSha}"
+        },
+        "LogConfiguration": {
+          {{{ template "task-log-configuration" }}}
+        },
+        "MemoryReservation": 512,
+        "Name": "migrator",
+        "ReadonlyRootFilesystem": false
+      }
+    ],
+    "Family": {
+      "Fn::Sub": "${AWS::StackName}-migrator"
+    },
+    "TaskRoleArn": {
+      "Fn::GetAtt": [
+        "TaskRole",
+        "Arn"
+      ]
+    }
+  }
+}
+{{{end}}}

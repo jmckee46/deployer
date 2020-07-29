@@ -1,0 +1,18 @@
+{{{define "route-table"}}}
+"RouteTable": {
+  "Type": "AWS::EC2::RouteTable",
+  "Properties": {
+    "Tags": [
+      {
+        "Key" : "Name",
+        "Value" : {
+          "Ref": "AWS::StackName"
+        }
+      }
+    ],
+    "VpcId": {
+      "Ref": "Vpc"
+    }
+  }
+}
+{{{end}}}

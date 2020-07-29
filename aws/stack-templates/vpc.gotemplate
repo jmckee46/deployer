@@ -1,0 +1,20 @@
+{{{define "vpc"}}}
+"Vpc": {
+  "Type": "AWS::EC2::VPC",
+  "Properties": {
+    "CidrBlock": {
+      "Fn::Sub": "${SlVpcCidrBase}.0/22"
+    },
+    "Tags": [
+      {
+        "Key" : "Name",
+        "Value" : {
+          "Ref": "AWS::StackName"
+        }
+      }
+    ],
+    "EnableDnsSupport": true,
+    "EnableDnsHostnames": true
+  }
+}
+{{{end}}}

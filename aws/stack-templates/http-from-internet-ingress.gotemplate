@@ -1,0 +1,22 @@
+{{{define "http-from-internet-ingress"}}}
+"HTTPFromInternetIngress": {
+  "Type": "AWS::EC2::SecurityGroupIngress",
+  "Properties": {
+    "Tags": [
+      {
+        "Key" : "Name",
+        "Value" : {
+          "Ref": "AWS::StackName"
+        }
+      }
+    ],
+    "GroupId": {
+      "Ref": "PublicSecurityGroup"
+    },
+    "IpProtocol": "tcp",
+    "FromPort": 80,
+    "ToPort": 81,
+    "CidrIp": "0.0.0.0/0"
+  }
+}
+{{{end}}}

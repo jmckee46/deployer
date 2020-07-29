@@ -1,0 +1,130 @@
+{{{define "orgs"}}}
+"OrgsListenerRule": {
+  "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+  "DependsOn": [
+    "ListenerTls"
+  ],
+  "Properties": {
+    "Actions": [
+      {
+        "TargetGroupArn": {
+          "Ref": "OrgsTargetGroup"
+        },
+        "Type": "forward"
+      }
+    ],
+    "Conditions": [
+      {
+        "Field": "path-pattern",
+        "Values": [
+          "/orgs*",
+          "orgs-health-check"
+        ]
+      }
+    ],
+    "ListenerArn": {
+      "Ref": "ListenerTls"
+    },
+    "Priority": 70
+  }
+},
+"OrgsTargetGroup": {
+  "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+  "Properties": {
+    "HealthCheckIntervalSeconds": 300,
+    "HealthCheckPath": "/orgs-health-check",
+    "HealthCheckProtocol": "HTTPS",
+    "Matcher": {
+      "HttpCode": "200"
+    },
+    "Name": {
+      "Fn::Sub": "${AWS::StackName}-orgs"
+    },
+    "Port": 1,
+    "Protocol": "HTTPS",
+    "VpcId": {
+      "Ref": "Vpc"
+    }
+  }
+},
+"OrgsTask": {
+  "DependsOn": [
+    "TaskPolicy"
+  ],
+  "Type": "AWS::ECS::TaskDefinition",
+  "Properties": {
+    "ContainerDefinitions": [
+      {
+        "DockerSecurityOptions": [
+          "no-new-privileges"
+        ],
+        "Environment": [
+          {{{ template "environment" }}}
+        ],
+        "Essential": true,
+        "Image": {
+          "Fn::Sub": "${SlDockerRegistry}/${AWS::StackName}-orgs:${SlGitSha}"
+        },
+        "LogConfiguration": {
+          {{{ template "task-log-configuration" }}}
+        },
+        "MemoryReservation": 64,
+        "Name": "orgs",
+        "PortMappings": [
+          {
+            "ContainerPort": 443
+          }
+        ],
+        "ReadonlyRootFilesystem": true
+      }
+    ],
+    "Family": {
+      "Fn::Sub": "${AWS::StackName}-orgs"
+    },
+    "TaskRoleArn": {
+      "Fn::GetAtt": [
+        "TaskRole",
+        "Arn"
+      ]
+    }
+  }
+},
+"OrgsService": {
+  "DependsOn": [
+    "OrgsListenerRule",
+    "OrgsTargetGroup"
+  ],
+  "Type": "AWS::ECS::Service",
+  "Properties": {
+    "Cluster": {
+      "Ref": "Cluster"
+    },
+    "TaskDefinition": {
+      "Ref": "OrgsTask"
+    },
+    "DeploymentConfiguration": {
+      "MaximumPercent": "200",
+      "MinimumHealthyPercent": "50"
+    },
+    "DesiredCount": 4,
+    "LoadBalancers": [
+      {
+        "ContainerName": "orgs",
+        "ContainerPort": "443",
+        "TargetGroupArn": {
+          "Ref": "OrgsTargetGroup"
+        }
+      }
+    ],
+    "PlacementStrategies": [
+      {
+        "Type": "spread",
+        "Field": "attribute:ecs.availability-zone"
+      }
+    ],
+    "Role": {
+      "Ref": "ServiceRole"
+    }
+  }
+}
+{{{end}}}

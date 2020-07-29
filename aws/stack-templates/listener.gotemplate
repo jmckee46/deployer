@@ -1,0 +1,20 @@
+{{{define "listener"}}}
+"Listener": {
+  "Type": "AWS::ElasticLoadBalancingV2::Listener",
+  "Properties": {
+    "DefaultActions": [
+      {
+        "Type": "forward",
+        "TargetGroupArn": {
+          "Ref": "StatusApiTargetGroup"
+        }
+      }
+    ],
+    "LoadBalancerArn": {
+      "Ref": "LoadBalancer"
+    },
+    "Port": "80",
+    "Protocol": "HTTP"
+  }
+}
+{{{end}}}

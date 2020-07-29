@@ -1,0 +1,39 @@
+{{{define "http-specs"}}}
+"HttpSpecsServiceTask": {
+  "DependsOn": [
+    "TaskPolicy"
+  ],
+  "Type": "AWS::ECS::TaskDefinition",
+  "Properties": {
+    "ContainerDefinitions": [
+      {
+        "DockerSecurityOptions": [
+          "no-new-privileges"
+        ],
+        "Environment": [
+          {{{ template "environment" }}}
+        ],
+        "Essential": true,
+        "Image": {
+          "Fn::Sub": "${SlDockerRegistry}/${SlStackName}-http-specs:${SlGitSha}"
+        },
+        "LogConfiguration": {
+          {{{ template "task-log-configuration" }}}
+        },
+        "MemoryReservation": 512,
+        "Name": "http-specs",
+        "ReadonlyRootFilesystem": false
+      }
+    ],
+    "Family": {
+      "Fn::Sub": "${AWS::StackName}-http-specs"
+    },
+    "TaskRoleArn": {
+      "Fn::GetAtt": [
+        "TaskRole",
+        "Arn"
+      ]
+    }
+  }
+}
+{{{end}}}

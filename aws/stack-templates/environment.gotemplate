@@ -1,0 +1,149 @@
+{{{define "environment"}}}
+{
+  "Name": "AWS_REGION",
+  "Value": {
+    "Ref": "AWS::Region"
+  }
+},
+{
+  "Name": "AWS_DEFAULT_REGION",
+  "Value": {
+    "Ref": "AWS::Region"
+  }
+},
+{
+  "Name": "LANG",
+  "Value": "en_US.UTF-8"
+},
+{
+  "Name": "LC_ALL",
+  "Value": "en_US.UTF-8"
+},
+{
+  "Name": "POSTGRES_USER",
+  "Value": {
+    "Ref": "PostgresUser"
+  }
+},
+{
+  "Name": "POSTGRES_PASSWORD",
+  "Value": {
+    "Ref": "PostgresPassword"
+  }
+},
+{
+  "Name": "SL_IDENTITIES_PGHOST",
+  "Value": {
+    "Fn::GetAtt": [
+      "IdentitiesPostgres",
+      "Endpoint.Address"
+    ]
+  }
+},
+{
+  "Name": "SL_IDENTITIES_PGPASSWORD",
+  "Value": {
+    "Ref": "SlIdentitiesPgPassword"
+  }
+},
+{
+  "Name": "SL_MIGRATIONS_PGHOST",
+  "Value": {
+    "Fn::GetAtt": [
+      "MigrationsPostgres",
+      "Endpoint.Address"
+    ]
+  }
+},
+{
+  "Name": "SL_MIGRATIONS_PGPASSWORD",
+  "Value": {
+    "Ref": "SlMigrationsPgPassword"
+  }
+},
+{
+  "Name": "SL_LEDGER_PGHOST",
+  "Value": {
+    "Fn::GetAtt": [
+      "LedgerPostgres",
+      "Endpoint.Address"
+    ]
+  }
+},
+{
+  "Name": "SL_LEDGER_PGPASSWORD",
+  "Value": {
+    "Ref": "SlLedgerPgPassword"
+  }
+},
+{
+  "Name": "PGSSLMODE",
+  "Value": "require"
+},
+{
+  "Name": "PGTZ",
+  "Value": "UTC"
+},
+{
+  "Name": "REDIS_URI",
+  "Value": "redis://redis:6379"
+},
+{
+  "Name": "TZ",
+  "Value": "UTC"
+},
+{
+  "Name": "SL_STACK_NAME",
+  "Value": {
+    "Ref": "AWS::StackName"
+  }
+},
+{
+  "Name": "SL_GIT_SHA",
+  "Value": {
+    "Ref": "SlGitSha"
+  }
+},
+{
+  "Name": "SL_LOCAL",
+  "Value": "false"
+},
+{
+  "Name": "SL_JWT_SIGNING_KEY",
+  "Value": {
+    "Ref": "SlJwtSigningKey"
+  }
+},
+{
+  "Name": "SL_JWT_VALIDITY_DURATION",
+  "Value": "8760h"
+},
+{
+  "Name": "SL_LOAD_BALANCER_HOSTNAME",
+  "Value": {
+    "Ref": "SlLoadBalancerHostname"
+  }
+},
+{
+  "Name": "SL_LOAD_BALANCER_SCHEME",
+  "Value": "https"
+},
+{
+  "Name": "SL_ADMIN_BEARER_TOKEN",
+  "Value": {
+    "Ref": "SlAdminBearerToken"
+  }
+},
+{
+  "Name": "SL_LOG_COLORIZATION",
+  "Value": "false"
+},
+{
+  "Name": "SL_LOG_DEBUG_MESSAGES",
+  "Value": "false"
+},
+{
+  "Name": "SL_LOG_SERIALIZATION",
+  "Value": "json-compact"
+}
+{{{end}}}

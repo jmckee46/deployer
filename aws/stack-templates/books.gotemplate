@@ -1,0 +1,130 @@
+{{{define "books"}}}
+"BooksListenerRule": {
+  "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+  "DependsOn": [
+    "ListenerTls"
+  ],
+  "Properties": {
+    "Actions": [
+      {
+        "TargetGroupArn": {
+          "Ref": "BooksTargetGroup"
+        },
+        "Type": "forward"
+      }
+    ],
+    "Conditions": [
+      {
+        "Field": "path-pattern",
+        "Values": [
+          "/orgs/*/books*",
+          "/books-health-check"
+        ]
+      }
+    ],
+    "ListenerArn": {
+      "Ref": "ListenerTls"
+    },
+    "Priority": 60
+  }
+},
+"BooksTargetGroup": {
+  "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+  "Properties": {
+    "HealthCheckIntervalSeconds": 300,
+    "HealthCheckPath": "/books-health-check",
+    "HealthCheckProtocol": "HTTPS",
+    "Matcher": {
+      "HttpCode": "200"
+    },
+    "Name": {
+      "Fn::Sub": "${AWS::StackName}-books"
+    },
+    "Port": 1,
+    "Protocol": "HTTPS",
+    "VpcId": {
+      "Ref": "Vpc"
+    }
+  }
+},
+"BooksTask": {
+  "DependsOn": [
+    "TaskPolicy"
+  ],
+  "Type": "AWS::ECS::TaskDefinition",
+  "Properties": {
+    "ContainerDefinitions": [
+      {
+        "DockerSecurityOptions": [
+          "no-new-privileges"
+        ],
+        "Environment": [
+          {{{ template "environment" }}}
+        ],
+        "Essential": true,
+        "Image": {
+          "Fn::Sub": "${SlDockerRegistry}/${AWS::StackName}-books:${SlGitSha}"
+        },
+        "LogConfiguration": {
+          {{{ template "task-log-configuration" }}}
+        },
+        "MemoryReservation": 64,
+        "Name": "books",
+        "PortMappings": [
+          {
+            "ContainerPort": 443
+          }
+        ],
+        "ReadonlyRootFilesystem": true
+      }
+    ],
+    "Family": {
+      "Fn::Sub": "${AWS::StackName}-books"
+    },
+    "TaskRoleArn": {
+      "Fn::GetAtt": [
+        "TaskRole",
+        "Arn"
+      ]
+    }
+  }
+},
+"BooksService": {
+  "DependsOn": [
+    "BooksListenerRule",
+    "BooksTargetGroup"
+  ],
+  "Type": "AWS::ECS::Service",
+  "Properties": {
+    "Cluster": {
+      "Ref": "Cluster"
+    },
+    "DeploymentConfiguration": {
+      "MaximumPercent": "200",
+      "MinimumHealthyPercent": "50"
+    },
+    "DesiredCount": 4,
+    "LoadBalancers": [
+      {
+        "ContainerName": "books",
+        "ContainerPort": "443",
+        "TargetGroupArn": {
+          "Ref": "BooksTargetGroup"
+        }
+      }
+    ],
+    "PlacementStrategies": [
+      {
+        "Type": "spread",
+        "Field": "attribute:ecs.availability-zone"
+      }
+    ],
+    "Role": {
+      "Ref": "ServiceRole"
+    },
+    "TaskDefinition": {
+      "Ref": "BooksTask"
+    }
+  }
+}
+{{{end}}}

@@ -1,0 +1,137 @@
+{{{define "identities"}}}
+"IdentitiesListenerRule": {
+  "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
+  "DependsOn": [
+    "ListenerTls"
+  ],
+  "Properties": {
+    "Actions": [
+      {
+        "TargetGroupArn": {
+          "Ref": "IdentitiesTargetGroup"
+        },
+        "Type": "forward"
+      }
+    ],
+    "Conditions": [
+      {
+        "Field": "path-pattern",
+        "Values": [
+          "/identities*"
+        ]
+      }
+    ],
+    "ListenerArn": {
+      "Ref": "ListenerTls"
+    },
+    "Priority": 61
+  }
+},
+"IdentitiesTargetGroup": {
+  "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+  "Properties": {
+    "Tags": [
+      {
+        "Key" : "Name",
+        "Value" : {
+          "Ref": "AWS::StackName"
+        }
+      }
+    ],
+    "HealthCheckIntervalSeconds": 300,
+    "HealthCheckPath": "/identities-health-check",
+    "HealthCheckProtocol": "HTTPS",
+    "Matcher": {
+      "HttpCode": "200"
+    },
+    "Name": {
+      "Fn::Sub": "${SlStackName}-identities"
+    },
+    "Port": 1,
+    "Protocol": "HTTPS",
+    "VpcId": {
+      "Ref": "Vpc"
+    }
+  }
+},
+"IdentitiesTask": {
+  "DependsOn": [
+    "TaskPolicy"
+  ],
+  "Type": "AWS::ECS::TaskDefinition",
+  "Properties": {
+    "ContainerDefinitions": [
+      {
+        "DockerSecurityOptions": [
+          "no-new-privileges"
+        ],
+        "Environment": [
+          {{{ template "environment" }}}
+        ],
+        "Essential": true,
+        "Image": {
+          "Fn::Sub": "${SlDockerRegistry}/${AWS::StackName}-identities:${SlGitSha}"
+        },
+        "LogConfiguration": {
+          {{{ template "task-log-configuration" }}}
+        },
+        "MemoryReservation": 64,
+        "Name": "identities",
+        "PortMappings": [
+          {
+            "ContainerPort": 443
+          }
+        ],
+        "ReadonlyRootFilesystem": true
+      }
+    ],
+    "Family": {
+      "Fn::Sub": "${AWS::StackName}-identities"
+    },
+    "TaskRoleArn": {
+      "Fn::GetAtt": [
+        "TaskRole",
+        "Arn"
+      ]
+    }
+  }
+},
+"IdentitiesService": {
+  "DependsOn": [
+    "IdentitiesListenerRule",
+    "IdentitiesTargetGroup"
+  ],
+  "Type": "AWS::ECS::Service",
+  "Properties": {
+    "Cluster": {
+      "Ref": "Cluster"
+    },
+    "TaskDefinition": {
+      "Ref": "IdentitiesTask"
+    },
+    "DeploymentConfiguration": {
+      "MaximumPercent": "200",
+      "MinimumHealthyPercent": "50"
+    },
+    "DesiredCount": 4,
+    "LoadBalancers": [
+      {
+        "ContainerName": "identities",
+        "ContainerPort": 443,
+        "TargetGroupArn": {
+          "Ref": "IdentitiesTargetGroup"
+        }
+      }
+    ],
+    "PlacementStrategies": [
+      {
+        "Type": "spread",
+        "Field": "attribute:ecs.availability-zone"
+      }
+    ],
+    "Role": {
+      "Ref": "ServiceRole"
+    }
+  }
+}
+{{{end}}}

@@ -1,0 +1,79 @@
+{{{define "outputs"}}}
+"LoadBalancerHostname": {
+  "Description": "load balancer hostname",
+  "Value": {
+    "Fn::GetAtt": [
+      "LoadBalancer",
+      "DNSName"
+    ]
+  }
+},
+"SlSubnetCidrBlock0": {
+  "Description": "subnet CIDR block 0",
+  "Value": {
+    "Fn::Select": [
+      "0",
+      {
+        "Ref": "SlSubnetCidrBlocks"
+      }
+    ]
+  }
+},
+"SlSubnetCidrBlock1": {
+  "Description": "subnet CIDR block 1",
+  "Value": {
+    "Fn::Select": [
+      "1",
+      {
+        "Ref": "SlSubnetCidrBlocks"
+      }
+    ]
+  }
+},
+"SlSubnetCidrBlock2": {
+  "Description": "subnet CIDR block 2",
+  "Value": {
+    "Fn::Select": [
+      "2",
+      {
+        "Ref": "SlSubnetCidrBlocks"
+      }
+    ]
+  }
+},
+"SlSubnetCidrBlock3": {
+  "Description": "subnet CIDR block 3",
+  "Value": {
+    "Fn::Select": [
+      "3",
+      {
+        "Ref": "SlSubnetCidrBlocks"
+      }
+    ]
+  }
+},
+"IdentitiesPostgresHostname": {
+  "Description": "identities postgres hostname",
+  "Value": {
+    "Fn::GetAtt": [
+      "IdentitiesPostgres",
+      "Endpoint.Address"
+    ]
+  }
+},
+"MigrationsPostgresHostname": {
+  "Description": "migrator postgres hostname",
+  "Value": {
+    "Fn::GetAtt": [
+      "MigrationsPostgres",
+      "Endpoint.Address"
+    ]
+  }
+},
+"GitSha": {
+  "Description": "git sha of currently running code",
+  "Value": {
+    "Ref": "SlGitSha"  
+  }
+}
+{{{end}}}

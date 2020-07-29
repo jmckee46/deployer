@@ -1,0 +1,40 @@
+{{{define "status-api-target-group"}}}
+"StatusApiTargetGroup": {
+  "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+  "Properties": {
+    "HealthCheckIntervalSeconds": 300,
+    "HealthCheckPath": "/status",
+    "HealthCheckProtocol": "HTTP",
+    "Matcher": {
+      "HttpCode": "200"
+    },
+    "Name": {
+      "Fn::Sub": "${AWS::StackName}-status-api"
+    },
+    "Port": 1,
+    "Protocol": "HTTP",
+    "VpcId": {
+      "Ref": "Vpc"
+    }
+  }
+},
+"StatusApiTlsTargetGroup": {
+  "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+  "Properties": {
+    "HealthCheckIntervalSeconds": 300,
+    "HealthCheckPath": "/status",
+    "HealthCheckProtocol": "HTTPS",
+    "Matcher": {
+      "HttpCode": "200"
+    },
+    "Name": {
+      "Fn::Sub": "${AWS::StackName}-status-api-tls"
+    },
+    "Port": 1,
+    "Protocol": "HTTPS",
+    "VpcId": {
+      "Ref": "Vpc"
+    }
+  }
+}
+{{{end}}}

@@ -1,0 +1,24 @@
+{{{define "tcp-from-public-security-group-ingress"}}}
+"TCPFromPublicSecurityGroupIngress": {
+  "Type": "AWS::EC2::SecurityGroupIngress",
+  "Properties": {
+    "Tags": [
+      {
+        "Key" : "Name",
+        "Value" : {
+          "Ref": "AWS::StackName"
+        }
+      }
+    ],
+    "GroupId": {
+      "Ref": "PrivateSecurityGroup"
+    },
+    "IpProtocol": "tcp",
+    "FromPort": 32768,
+    "ToPort": 65535,
+    "SourceSecurityGroupId": {
+      "Ref": "PublicSecurityGroup"
+    }
+  }
+}
+{{{end}}}

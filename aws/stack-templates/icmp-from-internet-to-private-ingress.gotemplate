@@ -1,0 +1,22 @@
+{{{define "icmp-from-internet-to-private-ingress"}}}
+"IcmpFromInternetToPrivateIngress": {
+  "Type": "AWS::EC2::SecurityGroupIngress",
+  "Properties": {
+    "Tags": [
+      {
+        "Key" : "Name",
+        "Value" : {
+          "Ref": "AWS::StackName"
+        }
+      }
+    ],
+    "GroupId": {
+      "Ref": "PublicSecurityGroup"
+    },
+    "IpProtocol": "icmp",
+    "FromPort": -1,
+    "ToPort": -1,
+    "CidrIp": "0.0.0.0/0"
+  }
+}
+{{{end}}}

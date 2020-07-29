@@ -1,0 +1,66 @@
+{{{define "parameters"}}}
+"SlBranchName": {
+  "Description": "branch name",
+  "Type": "String"
+},
+"SlDockerRegistry": {
+  "Description": "docker repo host",
+  "Type": "String"
+},
+"SlGitSha": {
+  "Description": "git sha",
+  "Type": "String"
+},
+"SlJwtSigningKey": {
+  "Description": "JWT signing key",
+  "Type": "String"
+},
+"SlLoadBalancerHostname": {
+  "Description": "Load Balancer Hostname",
+  "Type": "String"
+},
+"SlLogglyToken": {
+  "Description": "Loggly identity token",
+  "Type": "String"
+},
+"SlStackName": {
+  "Description": "stack name",
+  "Type": "String"
+},
+"SlSubnetCidrBlocks": {
+  "Description": "subnet cidr blocks",
+  "Type": "CommaDelimitedList"
+},
+"SlTlsCertificateArn": {
+  "Description": "tls certificate arn",
+  "Type": "String"
+},
+"SlVpcCidrBase": {
+  "Description": "vpc cidr base",
+  "Type": "String"
+},
+"SlAdminBearerToken": {
+  "Description": "admin bearer token for api authentication",
+  "Type": "String"
+},
+"PostgresUser": {
+  "Description": "POSTGRES_USER",
+  "Type": "String"
+},
+"PostgresPassword": {
+  "Description": "POSTGRES_PASSWORD",
+  "Type": "String"
+},
+"SlMigrationsPgPassword": {
+  "Description": "Subledger Migrations PGPASSWORD",
+  "Type": "String"
+},
+"SlLedgerPgPassword": {
+  "Description": "Subledger Ledger PGPASSWORD",
+  "Type": "String"
+},
+"SlIdentitiesPgPassword": {
+  "Description": "Subledger Identities PGPASSWORD",
+  "Type": "String"
+}
+{{{end}}}
