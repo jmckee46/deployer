@@ -3,6 +3,7 @@ package deployLaptop
 import (
 	awsfuncs "github.com/jmckee46/deployer/aws"
 	"github.com/jmckee46/deployer/logger"
+	"github.com/jmckee46/deployer/tls"
 )
 
 func DeployFromLaptop() {
