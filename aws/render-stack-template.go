@@ -8,14 +8,14 @@ import (
 	"github.com/jmckee46/deployer/halt"
 )
 
-// PrepareStackTemplate converts a template file to a string
+// RenderStackTemplate assembles the various stack templates into one
 func RenderStackTemplate() flaw.Flaw {
-	branchStackTemplate := template.New("template.gotemplate")
+	branchStackTemplate := template.New("root.gotemplate")
 
 	branchStackTemplate.Delims("{{{", "}}}")
 
 	_, err :=
-		branchStackTemplate.ParseGlob("aws/branch-stack/*.gotemplate")
+		branchStackTemplate.ParseGlob("aws/stack-templates/*.gotemplate")
 
 	if err != nil {
 		halt.Panic(flaw.From(err))
