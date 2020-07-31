@@ -18,6 +18,7 @@ func PrepareStackTemplate() flaw.Flaw {
 		return err
 	}
 
+	// put template in s3
 	s3Dir := filepath.Join(
 		os.Getenv("DE_GIT_BRANCH"),
 		"templates",
@@ -31,6 +32,12 @@ func PrepareStackTemplate() flaw.Flaw {
 	)
 
 	err = PutFileInS3(s3Dir, localFile)
+	if err != nil {
+		return err
+	}
+
+	// validate stack template
+	err = ValidateStackTemplate()
 	if err != nil {
 		return err
 	}
