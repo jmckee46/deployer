@@ -10,8 +10,8 @@ import (
 	"github.com/jmckee46/deployer/flaw"
 )
 
-// PutFileInS3 uploads a single file to S3
-func PutFileInS3(filename string) flaw.Flaw {
+// PutFileInS3 uploads a single file to the S3 root bucket
+func PutFileInS3(s3Path string, localFilename string) flaw.Flaw {
 	fmt.Println("  putting file in S3...")
 
 	// get aws client
@@ -21,7 +21,7 @@ func PutFileInS3(filename string) flaw.Flaw {
 	uploader := s3manager.NewUploaderWithClient(awsS3)
 
 	// open file
-	file, err := os.Open(filename)
+	file, err := os.Open(localFilename)
 	if err != nil {
 		return flaw.From(err)
 	}
@@ -32,7 +32,7 @@ func PutFileInS3(filename string) flaw.Flaw {
 	input := &s3manager.UploadInput{
 		Body:   file,
 		Bucket: aws.String(os.Getenv("DE_ROOT_BUCKET")),
-		Key:    aws.String(filename),
+		Key:    aws.String(s3Path),
 	}
 
 	// upload the file

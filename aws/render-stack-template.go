@@ -12,10 +12,11 @@ import (
 
 // RenderStackTemplate assembles the various stack templates into one
 func RenderStackTemplate() flaw.Flaw {
+	fmt.Println("  rendering stack template...")
 	// make new branch directory in artifacts
 	branchName := filepath.Join(
 		os.Getenv("DE_ARTIFACTS_PATH"),
-		os.Getenv("DE_STACK_NAME"),
+		os.Getenv("DE_GIT_BRANCH"),
 	)
 
 	err := os.MkdirAll(branchName, 0755)
