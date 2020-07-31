@@ -1,12 +1,18 @@
 package awsfuncs
 
 import (
+	"fmt"
+
 	envvars "github.com/jmckee46/deployer/env-vars"
 	"github.com/jmckee46/deployer/flaw"
 )
 
-// Deploy
+// Deploy deploys docker images to AWS
 func Deploy() flaw.Flaw {
+	fmt.Println("Deploying to AWS")
+
+	state := NewState()
+
 	// validate env vars
 	err := envvars.ValidateDeploymentEnvVars()
 	if err != nil {
@@ -15,13 +21,13 @@ func Deploy() flaw.Flaw {
 
 	// TODO: NEED TO WRITE CREATE STACK BEFORE I CAN DELETE...
 	// // consider delete stack
-	// err = considerDeleteStack()
+	// err = considerDeleteStack(state)
 	// if err != nil {
 	// 	return err
 	// }
 
 	// prepare the stack template
-	err = PrepareStackTemplate()
+	err = PrepareStackTemplate(state)
 	if err != nil {
 		return err
 	}

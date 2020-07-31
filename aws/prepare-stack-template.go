@@ -9,35 +9,29 @@ import (
 )
 
 // PrepareStackTemplate converts a template file to a string
-func PrepareStackTemplate() flaw.Flaw {
+func PrepareStackTemplate(state *state) flaw.Flaw {
 	fmt.Println("Preparing stack...")
 
 	// render stack
-	err := RenderStackTemplate()
+	err := RenderStackTemplate(state)
 	if err != nil {
 		return err
 	}
 
 	// put template in s3
-	s3Dir := filepath.Join(
+	state.renderedTemplateS3 = filepath.Join(
 		os.Getenv("DE_GIT_BRANCH"),
 		"templates",
 		os.Getenv("DE_GIT_SHA"),
 	) + ".template"
 
-	localFile := filepath.Join(
-		os.Getenv("DE_ARTIFACTS_PATH"),
-		os.Getenv("DE_GIT_BRANCH"),
-		"completeStack",
-	)
-
-	err = PutFileInS3(s3Dir, localFile)
+	err = PutFileInS3(state, state.renderedTemplateS3, state.renderedTemplateLocal)
 	if err != nil {
 		return err
 	}
 
 	// validate stack template
-	err = ValidateStackTemplate()
+	err = ValidateStackTemplate(state)
 	if err != nil {
 		return err
 	}

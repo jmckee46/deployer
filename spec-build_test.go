@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/jmckee46/deployer/env-vars"
+	"github.com/jmckee46/deployer/aws"
 )
 
 func TestCurrentSha(t *testing.T) {
 	// err := awsfuncs.GetTlsFilesFromS3()
-	err := envvars.ValidateDeploymentEnvVars()
+	state := awsfuncs.NewState()
+
+	err := awsfuncs.PrepareStackTemplate(state)
 	if err != nil {
 		fmt.Println(err.String())
 	}
@@ -18,3 +20,5 @@ func TestCurrentSha(t *testing.T) {
 	// 	t.Errorf("got %d instead of 1", daysNotified)
 	// }
 }
+
+// "artifacts/test-bra-e3b0/completeStack"

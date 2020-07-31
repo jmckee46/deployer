@@ -11,10 +11,6 @@
   "Description": "git sha",
   "Type": "String"
 },
-"SlJwtSigningKey": {
-  "Description": "JWT signing key",
-  "Type": "String"
-},
 "SlLoadBalancerHostname": {
   "Description": "Load Balancer Hostname",
   "Type": "String"
@@ -39,10 +35,6 @@
   "Description": "vpc cidr base",
   "Type": "String"
 },
-"SlAdminBearerToken": {
-  "Description": "admin bearer token for api authentication",
-  "Type": "String"
-},
 "PostgresUser": {
   "Description": "POSTGRES_USER",
   "Type": "String"
@@ -57,10 +49,6 @@
 },
 "SlLedgerPgPassword": {
   "Description": "Subledger Ledger PGPASSWORD",
-  "Type": "String"
-},
-"SlIdentitiesPgPassword": {
-  "Description": "Subledger Identities PGPASSWORD",
   "Type": "String"
 }
 {{{end}}}

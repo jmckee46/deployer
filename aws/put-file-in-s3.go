@@ -6,16 +6,15 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	"github.com/jmckee46/deployer/aws/client"
 	"github.com/jmckee46/deployer/flaw"
 )
 
 // PutFileInS3 uploads a single file to the S3 root bucket
-func PutFileInS3(s3Path string, localFilename string) flaw.Flaw {
+func PutFileInS3(state *state, s3Path string, localFilename string) flaw.Flaw {
 	fmt.Println("  putting file in S3...")
 
 	// get aws client
-	awsS3 := awsclient.FromPool().S3
+	awsS3 := state.AWSClient.S3
 
 	// create uploader
 	uploader := s3manager.NewUploaderWithClient(awsS3)
