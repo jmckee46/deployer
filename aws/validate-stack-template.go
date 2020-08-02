@@ -18,13 +18,13 @@ func ValidateStackTemplate(state *state) flaw.Flaw {
 	cloud := state.AWSClient.Cloudform
 
 	// create the ValidateTemplateInput struct
-	state.renderedTemplateS3URL = "https://s3.amazonaws.com/" + filepath.Join(
+	state.RenderedTemplateS3URL = "https://s3.amazonaws.com/" + filepath.Join(
 		os.Getenv("DE_ROOT_BUCKET"),
-		state.renderedTemplateS3,
+		state.RenderedTemplateS3,
 	)
 
 	input := &cloudformation.ValidateTemplateInput{
-		TemplateURL: aws.String(state.renderedTemplateS3URL),
+		TemplateURL: aws.String(state.RenderedTemplateS3URL),
 	}
 
 	// validate the template

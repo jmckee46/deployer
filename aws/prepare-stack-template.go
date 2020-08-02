@@ -19,13 +19,13 @@ func PrepareStackTemplate(state *state) flaw.Flaw {
 	}
 
 	// put template in s3
-	state.renderedTemplateS3 = filepath.Join(
+	state.RenderedTemplateS3 = filepath.Join(
 		os.Getenv("DE_GIT_BRANCH"),
 		"templates",
 		os.Getenv("DE_GIT_SHA"),
 	) + ".template"
 
-	err = PutFileInS3(state, state.renderedTemplateS3, state.renderedTemplateLocal)
+	err = PutFileInS3(state, state.RenderedTemplateS3, state.RenderedTemplateLocal)
 	if err != nil {
 		return err
 	}

@@ -25,11 +25,11 @@ func RenderStackTemplate(state *state) flaw.Flaw {
 	}
 
 	// create file
-	state.renderedTemplateLocal = filepath.Join(
+	state.RenderedTemplateLocal = filepath.Join(
 		branchName,
 		"completeStack",
 	)
-	newStackFile, err := os.Create(state.renderedTemplateLocal)
+	newStackFile, err := os.Create(state.RenderedTemplateLocal)
 	if err != nil {
 		fmt.Println("trouble creating file:", err)
 	}

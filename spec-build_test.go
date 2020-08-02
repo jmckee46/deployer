@@ -9,9 +9,10 @@ import (
 
 func TestCurrentSha(t *testing.T) {
 	// err := awsfuncs.GetTlsFilesFromS3()
-	// state := awsfuncs.NewState()
+	state := awsfuncs.NewState()
+	state.RenderedTemplateLocal = "artifacts/test-branch/completeStack"
 
-	err := awsfuncs.Deploy()
+	err := awsfuncs.ValidateTargetGroupNames(state)
 	if err != nil {
 		fmt.Println(err.String())
 	}

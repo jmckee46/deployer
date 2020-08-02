@@ -6,9 +6,9 @@ import (
 
 type state struct {
 	AWSClient             *awsclient.Client
-	renderedTemplateLocal string
-	renderedTemplateS3    string
-	renderedTemplateS3URL string
+	RenderedTemplateLocal string
+	RenderedTemplateS3    string
+	RenderedTemplateS3URL string
 }
 
 func NewState() *state {
