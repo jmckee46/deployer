@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/jmckee46/deployer/flaw"
 )
@@ -56,13 +57,24 @@ func ValidateTargetGroupNames(state *state) flaw.Flaw {
 		}
 	}
 
-	fmt.Println("StackName:", os.Getenv("DE_STACK_NAME"))
-	fmt.Println("targetGroupNames:", targetGroupNames)
+	var cleanNames []string
 	stackNameLength := len(os.Getenv("DE_STACK_NAME"))
-	for targetGroupName := range targetGroupNames {
-		NEED TO SPLIT OUT THE NAME AND CHECK LENGTH
-		if len(stackNameLength + )
+	stackName := os.Getenv("DE_STACK_NAME")
+
+	// remove template substitution characters
+	for _, targetGroupName := range targetGroupNames {
+		splitName := strings.Split(targetGroupName, "}")
+		if len(splitName) > 1 {
+			cleanNames = append(cleanNames, splitName[1])
+		}
 	}
 
+	// check name length
+	for _, cleanName := range cleanNames {
+		if len(cleanName)+stackNameLength > 31 {
+			msg := fmt.Sprintf("target group name, %s, is longer than 31 characters", stackName+cleanName)
+			return flaw.New(msg)
+		}
+	}
 	return nil
 }
