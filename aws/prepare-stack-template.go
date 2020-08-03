@@ -36,5 +36,11 @@ func PrepareStackTemplate(state *state) flaw.Flaw {
 		return err
 	}
 
+	// validate target group names
+	err = ValidateTargetGroupNames(state)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
