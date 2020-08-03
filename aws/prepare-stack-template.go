@@ -18,6 +18,18 @@ func PrepareStackTemplate(state *state) flaw.Flaw {
 		return err
 	}
 
+	// validate target group names
+	err = ValidateTargetGroupNames(state)
+	if err != nil {
+		return err
+	}
+
+	// set deletion policy
+	err = SetDeletionPolicy(state)
+	if err != nil {
+		return err
+	}
+
 	// put template in s3
 	state.RenderedTemplateS3 = filepath.Join(
 		os.Getenv("DE_GIT_BRANCH"),
@@ -32,12 +44,6 @@ func PrepareStackTemplate(state *state) flaw.Flaw {
 
 	// validate stack template
 	err = ValidateStackTemplate(state)
-	if err != nil {
-		return err
-	}
-
-	// validate target group names
-	err = ValidateTargetGroupNames(state)
 	if err != nil {
 		return err
 	}

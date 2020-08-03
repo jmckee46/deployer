@@ -44,11 +44,10 @@ func SetDeletionPolicy(state *state) flaw.Flaw {
 
 		if typedValue["Type"] == "AWS::RDS::DBInstance" {
 			if os.Getenv("DE_STACK_NAME") == "master" {
-				typedValue["DeletionPolicy"] = "\"Snapshot\""
+				typedValue["DeletionPolicy"] = "Snapshot"
 			} else {
-				typedValue["DeletionPolicy"] = "\"Delete\""
+				typedValue["DeletionPolicy"] = "Delete"
 			}
-			fmt.Println("typedValue:", typedValue)
 		}
 	}
 
@@ -57,7 +56,10 @@ func SetDeletionPolicy(state *state) flaw.Flaw {
 		return flaw.From(err)
 	}
 
-	ioutil.WriteFile("SAMPLEOUTPUT", updatedResult, 0)
+	err = ioutil.WriteFile(state.RenderedTemplateLocal, updatedResult, 0755)
+	if err != nil {
+		return flaw.From(err)
+	}
 
 	return nil
 }
