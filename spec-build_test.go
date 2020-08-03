@@ -10,9 +10,9 @@ import (
 func TestCurrentSha(t *testing.T) {
 	// err := awsfuncs.GetTlsFilesFromS3()
 	state := awsfuncs.NewState()
-	// state.RenderedTemplateLocal = "artifacts/test-branch/completeStack"
+	state.RenderedTemplateLocal = "artifacts/test-branch/completeStack"
 
-	err := awsfuncs.PrepareStackTemplate(state)
+	err := awsfuncs.SetDeletionPolicy(state)
 	if err != nil {
 		fmt.Println(err.String())
 	}
