@@ -37,5 +37,11 @@ func Deploy() flaw.Flaw {
 		return err
 	}
 
+	// optionially transition stack
+	err = OptionallyTransitionStack(state)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

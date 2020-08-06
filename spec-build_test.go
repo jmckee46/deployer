@@ -12,10 +12,14 @@ func TestCurrentSha(t *testing.T) {
 	state := awsfuncs.NewState()
 	// state.RenderedTemplateLocal = "artifacts/test-branch/completeStack"
 
-	err := awsfuncs.PrepareStackTemplate(state)
-	if err != nil {
-		fmt.Println(err.String())
+	if awsfuncs.MasterStackExists(state) {
+		fmt.Println("yes exists")
+	} else {
+		fmt.Println("does not exist")
 	}
+	// if err != nil {
+	// 	fmt.Println(err.String())
+	// }
 
 	//
 	//
