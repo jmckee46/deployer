@@ -2,6 +2,7 @@ package awsfuncs
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/jmckee46/deployer/flaw"
 )
@@ -23,8 +24,16 @@ func OptionallyTransitionStack(state *state) flaw.Flaw {
 	// 	create branch master
 	// 	update via change-set
 
-	if MasterStackExists(state) {
-
+	if os.Getenv("DE_STACK_NAME") == "master" {
+		// encrypt and store stack parameters in s3
+		if MasterStackExists(state) {
+			// update master via change set
+		} else {
+			// create master stack
+		}
+	} else {
+		// 	create branch master
+		// 	update via change-set
 	}
 
 	return nil
