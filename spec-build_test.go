@@ -2,21 +2,38 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
-	"github.com/jmckee46/deployer/aws"
+	"github.com/jmckee46/deployer/encrypt"
 )
 
 func TestCurrentSha(t *testing.T) {
+	keytext := os.Getenv("DE_PASS_PHRASE")
+	key := encrypt.StringToByte(keytext)
+
+	plaintext := "now is the time for all good men to come to the aid of their country!"
+	cyphertext, err := encrypt.Encrypt([]byte(plaintext), key)
+	if err != nil {
+		fmt.Println("err:", err)
+	}
+	fmt.Println("cyphertext:", string(cyphertext))
+
+	returnedText, err := encrypt.Decrypt(cyphertext, key)
+	if err != nil {
+		fmt.Println("err:", err)
+	}
+	fmt.Println("returnedText:", string(returnedText))
+
 	// err := awsfuncs.GetTlsFilesFromS3()
-	state := awsfuncs.NewState()
+	// state := awsfuncs.NewState()
 	// state.RenderedTemplateLocal = "artifacts/test-branch/completeStack"
 
-	if awsfuncs.MasterStackExists(state) {
-		fmt.Println("yes exists")
-	} else {
-		fmt.Println("does not exist")
-	}
+	// if awsfuncs.MasterStackExists(state) {
+	// 	fmt.Println("yes exists")
+	// } else {
+	// 	fmt.Println("does not exist")
+	// }
 	// if err != nil {
 	// 	fmt.Println(err.String())
 	// }
