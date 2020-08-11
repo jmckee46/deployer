@@ -26,10 +26,10 @@ func Deploy() flaw.Flaw {
 	// 	return err
 	// }
 
-	// if NotOKToDeploy() {
-	// 	fmt.Println("not deploying to aws: not on master and HEAD comment does not end [deploy]")
-	// 	return nil
-	// }
+	if NotOKToDeploy() {
+		fmt.Println("not deploying to aws: not on master and HEAD comment does not end [deploy]")
+		return nil
+	}
 
 	// prepare the stack template
 	err = PrepareStackTemplate(state)

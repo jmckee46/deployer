@@ -13,16 +13,10 @@ func CreateMasterStack(state *state) flaw.Flaw {
 	// get aws client
 	cloud := state.AWSClient.Cloudform
 
-	// get stack parameters
-	parameters, flawErr := StackParameters(state)
-	if flawErr != nil {
-		return flaw.From(flawErr)
-	}
-
 	// create input struct
 	input := &cloudformation.CreateStackInput{
 		Capabilities: []*string{aws.String("CAPABILITY_IAM"), aws.String("CAPABILITY_NAMED_IAM")},
-		Parameters:   parameters,
+		Parameters:   state.StackParametersAll,
 		StackName:    aws.String(os.Getenv("DE_STACK_NAME")),
 		TemplateURL:  aws.String(state.RenderedTemplateS3URL),
 	}

@@ -10,12 +10,12 @@ import (
 )
 
 // StackParameters returns the stack parameters required to create/update a stack
-func StackParameters(state *state) ([]*cloudformation.Parameter, flaw.Flaw) {
-	fmt.Println("gathering stack parameters...")
+func StackParameters(state *state) flaw.Flaw {
+	fmt.Println("  gathering stack parameters...")
 
 	arn, err := GetAcmCertificateArn()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	rootBucketParameter := cloudformation.Parameter{
@@ -34,10 +34,6 @@ func StackParameters(state *state) ([]*cloudformation.Parameter, flaw.Flaw) {
 	// 	ParameterKey:   aws.String("DeLogglyToken"),
 	// 	ParameterValue: aws.String(os.Getenv("DE_LOGGLY_TOKEN")),
 	// }
-	migrationsPgPasswordParameter := cloudformation.Parameter{
-		ParameterKey:   aws.String("DeMigrationsPgPassword"),
-		ParameterValue: aws.String(os.Getenv("DE_MIGRATIONS_PGPASSWORD")),
-	}
 	stackBucketParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeStackBucket"),
 		ParameterValue: aws.String(os.Getenv("DE_STACK_BUCKET")),
@@ -58,6 +54,22 @@ func StackParameters(state *state) ([]*cloudformation.Parameter, flaw.Flaw) {
 		ParameterKey:   aws.String("AnVpcCidrBase"),
 		ParameterValue: aws.String(os.Getenv("DE_VPC_CIDR_BASE")),
 	}
+
+	state.StackParametersStackState = []*cloudformation.Parameter{
+		&rootBucketParameter,
+		&gitShaParameter,
+		&loadBalancerHostnameParameter,
+		&stackBucketParameter,
+		&stackNameParameter,
+		&subnetCidrBlockParameter,
+		&tlsCertificationArnParameter,
+		&VpcCidrBaseParameter,
+	}
+
+	migrationsPgPasswordParameter := cloudformation.Parameter{
+		ParameterKey:   aws.String("DeMigrationsPgPassword"),
+		ParameterValue: aws.String(os.Getenv("DE_MIGRATIONS_PGPASSWORD")),
+	}
 	postgresUserParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("PostgresUser"),
 		ParameterValue: aws.String(os.Getenv("POSTGRES_USER")),
@@ -67,18 +79,13 @@ func StackParameters(state *state) ([]*cloudformation.Parameter, flaw.Flaw) {
 		ParameterValue: aws.String(os.Getenv("POSTGRES_PASSWORD")),
 	}
 
-	parameters := []*cloudformation.Parameter{
-		&rootBucketParameter,
-		&gitShaParameter,
-		&loadBalancerHostnameParameter,
+	state.StackParametersPasswords = []*cloudformation.Parameter{
 		&migrationsPgPasswordParameter,
-		&stackBucketParameter,
-		&stackNameParameter,
-		&subnetCidrBlockParameter,
-		&tlsCertificationArnParameter,
-		&VpcCidrBaseParameter,
 		&postgresUserParameter,
 		&postgresPasswordParameter,
 	}
-	return parameters, nil
+
+	state.StackParametersAll = append(state.StackParametersPasswords, state.StackParametersStackState...)
+
+	return nil
 }

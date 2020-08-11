@@ -12,7 +12,7 @@ func MasterStackExists(state *state) bool {
 	if err != nil {
 		if awsErr, ok := err.(awserr.Error); ok {
 			// Get error details
-			if awsErr.Message() == "ValidationError Stack with id master does not exist" {
+			if awsErr.Message() == "Stack with id master does not exist" {
 				return false
 			}
 

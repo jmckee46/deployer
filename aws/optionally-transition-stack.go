@@ -15,18 +15,27 @@ func OptionallyTransitionStack(state *state) flaw.Flaw {
 	}
 
 	fmt.Println("optionally transitioning stack...")
+	// get stack parameters
+	flawErr := StackParameters(state)
+	if flawErr != nil {
+		return flawErr
+	}
 
 	if os.Getenv("DE_STACK_NAME") == "master" {
 		// encrypt and store stack parameters in s3
-		//   convert to json via json.MarshalIndent or Marshal output is []byte
-		//   encrypt the []byte
-		//   write to local file ioutil.WriteFile
-		//   store in s3 via put-file-in-s3
+		flawErr := PutStackParametersInS3(state)
+		if flawErr != nil {
+			return flawErr
+		}
 
 		if MasterStackExists(state) {
 			// update master via change set
 		} else {
 			// create master stack
+			flawErr := CreateMasterStack(state)
+			if flawErr != nil {
+				return flawErr
+			}
 		}
 	} else {
 		// 	create branch master

@@ -1,16 +1,12 @@
 package awsfuncs
 
 import (
-	"fmt"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 )
 
 // DescribeStack
 func DescribeStack(stackName string, state *state) error {
-	fmt.Println("describing stack...")
-
 	// get aws client
 	cloud := state.AWSClient.Cloudform
 
@@ -20,11 +16,11 @@ func DescribeStack(stackName string, state *state) error {
 	}
 
 	// describe stack
-	output, err := cloud.DescribeStacks(input)
+	_, err := cloud.DescribeStacks(input)
 	if err != nil {
 		return err
 	}
-	fmt.Println("\n  describe stack output:", output)
+	// fmt.Println("\n  describe stack output:", output)
 
 	return nil
 }
