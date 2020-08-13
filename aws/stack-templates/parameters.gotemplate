@@ -1,37 +1,37 @@
 {{{define "parameters"}}}
-"SlBranchName": {
+"DeBranchName": {
   "Description": "branch name",
   "Type": "String"
 },
-"SlDockerRegistry": {
+"DeDockerRegistry": {
   "Description": "docker repo host",
   "Type": "String"
 },
-"SlGitSha": {
+"DeGitSha": {
   "Description": "git sha",
   "Type": "String"
 },
-"SlLoadBalancerHostname": {
+"DeLoadBalancerHostname": {
   "Description": "Load Balancer Hostname",
   "Type": "String"
 },
-"SlLogglyToken": {
+"DeLogglyToken": {
   "Description": "Loggly identity token",
   "Type": "String"
 },
-"SlStackName": {
+"DeStackName": {
   "Description": "stack name",
   "Type": "String"
 },
-"SlSubnetCidrBlocks": {
+"DeSubnetCidrBlocks": {
   "Description": "subnet cidr blocks",
   "Type": "CommaDelimitedList"
 },
-"SlTlsCertificateArn": {
+"DeTlsCertificateArn": {
   "Description": "tls certificate arn",
   "Type": "String"
 },
-"SlVpcCidrBase": {
+"DeVpcCidrBase": {
   "Description": "vpc cidr base",
   "Type": "String"
 },
@@ -43,12 +43,8 @@
   "Description": "POSTGRES_PASSWORD",
   "Type": "String"
 },
-"SlMigrationsPgPassword": {
+"DeMigrationsPgPassword": {
   "Description": "Subledger Migrations PGPASSWORD",
-  "Type": "String"
-},
-"SlLedgerPgPassword": {
-  "Description": "Subledger Ledger PGPASSWORD",
   "Type": "String"
 }
 {{{end}}}

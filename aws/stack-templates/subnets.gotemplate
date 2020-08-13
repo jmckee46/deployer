@@ -27,7 +27,7 @@
       "Fn::Select": [
         "0",
         {
-          "Ref": "SlSubnetCidrBlocks"
+          "Ref": "DeSubnetCidrBlocks"
         }
       ]
     }
@@ -61,7 +61,7 @@
       "Fn::Select": [
         "1",
         {
-          "Ref": "SlSubnetCidrBlocks"
+          "Ref": "DeSubnetCidrBlocks"
         }
       ]
     }
@@ -95,7 +95,7 @@
       "Fn::Select": [
         "2",
         {
-          "Ref": "SlSubnetCidrBlocks"
+          "Ref": "DeSubnetCidrBlocks"
         }
       ]
     }
@@ -121,7 +121,7 @@
       "Fn::Select": [
         "3",
         {
-          "Ref": "SlSubnetCidrBlocks"
+          "Ref": "DeSubnetCidrBlocks"
         }
       ]
     }

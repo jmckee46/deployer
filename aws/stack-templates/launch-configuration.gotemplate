@@ -34,7 +34,7 @@
             "cat > /etc/rsyslog.d/22-loggly.conf <<'RSYSLOG_CONFIG'\n",
             "$template LogglyForwardFormat,\"<%pri%>%protocol-version% %timestamp:::date-rfc3339% %hostname% %app-name% %procid% %msgid% [",
             {
-              "Ref": "SlLogglyToken"
+              "Ref": "DeLogglyToken"
             },
             "@41058]%msg:::sp-if-no-1st-sp%%msg:::drop-last-lf%\\n\"\n",
             "$ActionQueueFileName forward-to-loggly\n",

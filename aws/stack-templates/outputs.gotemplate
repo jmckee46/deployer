@@ -8,56 +8,47 @@
     ]
   }
 },
-"SlSubnetCidrBlock0": {
+"DeSubnetCidrBlock0": {
   "Description": "subnet CIDR block 0",
   "Value": {
     "Fn::Select": [
       "0",
       {
-        "Ref": "SlSubnetCidrBlocks"
+        "Ref": "DeSubnetCidrBlocks"
       }
     ]
   }
 },
-"SlSubnetCidrBlock1": {
+"DeSubnetCidrBlock1": {
   "Description": "subnet CIDR block 1",
   "Value": {
     "Fn::Select": [
       "1",
       {
-        "Ref": "SlSubnetCidrBlocks"
+        "Ref": "DeSubnetCidrBlocks"
       }
     ]
   }
 },
-"SlSubnetCidrBlock2": {
+"DeSubnetCidrBlock2": {
   "Description": "subnet CIDR block 2",
   "Value": {
     "Fn::Select": [
       "2",
       {
-        "Ref": "SlSubnetCidrBlocks"
+        "Ref": "DeSubnetCidrBlocks"
       }
     ]
   }
 },
-"SlSubnetCidrBlock3": {
+"DeSubnetCidrBlock3": {
   "Description": "subnet CIDR block 3",
   "Value": {
     "Fn::Select": [
       "3",
       {
-        "Ref": "SlSubnetCidrBlocks"
+        "Ref": "DeSubnetCidrBlocks"
       }
-    ]
-  }
-},
-"IdentitiesPostgresHostname": {
-  "Description": "identities postgres hostname",
-  "Value": {
-    "Fn::GetAtt": [
-      "IdentitiesPostgres",
-      "Endpoint.Address"
     ]
   }
 },
@@ -73,7 +64,7 @@
 "GitSha": {
   "Description": "git sha of currently running code",
   "Value": {
-    "Ref": "SlGitSha"  
+    "Ref": "DeGitSha"  
   }
 }
 {{{end}}}

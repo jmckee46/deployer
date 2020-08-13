@@ -29,7 +29,10 @@ func ValidateTargetGroupNames(state *state) flaw.Flaw {
 
 	// unmarshal the file
 	var result map[string]interface{}
-	json.Unmarshal(templateBytes, &result)
+	err = json.Unmarshal(templateBytes, &result)
+	if err != nil {
+		return flaw.From(err)
+	}
 
 	var resources map[string]interface{}
 	var properties map[string]interface{}

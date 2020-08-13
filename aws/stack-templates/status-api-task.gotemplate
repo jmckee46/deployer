@@ -15,7 +15,7 @@
         ],
         "Essential": true,
         "Image": {
-          "Fn::Sub": "${SlDockerRegistry}/${AWS::StackName}-status-api:${SlGitSha}"
+          "Fn::Sub": "${DeDockerRegistry}/${AWS::StackName}-status-api:${DeGitSha}"
         },
         "LogConfiguration": {
           {{{ template "task-log-configuration" }}}

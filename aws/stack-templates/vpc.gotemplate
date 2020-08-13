@@ -3,7 +3,7 @@
   "Type": "AWS::EC2::VPC",
   "Properties": {
     "CidrBlock": {
-      "Fn::Sub": "${SlVpcCidrBase}.0/22"
+      "Fn::Sub": "${DeVpcCidrBase}.0/22"
     },
     "Tags": [
       {

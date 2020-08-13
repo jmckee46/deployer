@@ -15,7 +15,7 @@
         ],
         "Essential": true,
         "Image": {
-          "Fn::Sub": "${SlDockerRegistry}/${SlStackName}-http-specs:${SlGitSha}"
+          "Fn::Sub": "${DeDockerRegistry}/${DeStackName}-http-specs:${DeGitSha}"
         },
         "LogConfiguration": {
           {{{ template "task-log-configuration" }}}

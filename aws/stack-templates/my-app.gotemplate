@@ -1,5 +1,5 @@
-{{{define "books"}}}
-"BooksListenerRule": {
+{{{define "myapp"}}}
+"MyAppListenerRule": {
   "Type": "AWS::ElasticLoadBalancingV2::ListenerRule",
   "DependsOn": [
     "ListenerTls"
@@ -8,7 +8,7 @@
     "Actions": [
       {
         "TargetGroupArn": {
-          "Ref": "BooksTargetGroup"
+          "Ref": "MyAppTargetGroup"
         },
         "Type": "forward"
       }
@@ -17,28 +17,27 @@
       {
         "Field": "path-pattern",
         "Values": [
-          "/orgs/*/books*",
-          "/books-health-check"
+          "/myapp-health-check"
         ]
       }
     ],
     "ListenerArn": {
       "Ref": "ListenerTls"
     },
-    "Priority": 60
+    "Priority": 40
   }
 },
-"BooksTargetGroup": {
+"MyAppTargetGroup": {
   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
   "Properties": {
     "HealthCheckIntervalSeconds": 300,
-    "HealthCheckPath": "/books-health-check",
+    "HealthCheckPath": "/myapp-health-check",
     "HealthCheckProtocol": "HTTPS",
     "Matcher": {
       "HttpCode": "200"
     },
     "Name": {
-      "Fn::Sub": "${AWS::StackName}-books"
+      "Fn::Sub": "${AWS::StackName}-myapp"
     },
     "Port": 1,
     "Protocol": "HTTPS",
@@ -47,7 +46,7 @@
     }
   }
 },
-"BooksTask": {
+"MyAppTask": {
   "DependsOn": [
     "TaskPolicy"
   ],
@@ -63,13 +62,13 @@
         ],
         "Essential": true,
         "Image": {
-          "Fn::Sub": "${SlDockerRegistry}/${AWS::StackName}-books:${SlGitSha}"
+          "Fn::Sub": "$DeDockerRegistry}/${AWS::StackName}-myapp:${DeGitSha}"
         },
         "LogConfiguration": {
           {{{ template "task-log-configuration" }}}
         },
         "MemoryReservation": 64,
-        "Name": "books",
+        "Name": "MyApp",
         "PortMappings": [
           {
             "ContainerPort": 443
@@ -79,7 +78,7 @@
       }
     ],
     "Family": {
-      "Fn::Sub": "${AWS::StackName}-books"
+      "Fn::Sub": "${AWS::StackName}-myapp"
     },
     "TaskRoleArn": {
       "Fn::GetAtt": [
@@ -89,15 +88,18 @@
     }
   }
 },
-"BooksService": {
+"MyAppService": {
   "DependsOn": [
-    "BooksListenerRule",
-    "BooksTargetGroup"
+    "MyAppListenerRule",
+    "MyAppTargetGroup"
   ],
   "Type": "AWS::ECS::Service",
   "Properties": {
     "Cluster": {
       "Ref": "Cluster"
+    },
+    "TaskDefinition": {
+      "Ref": "MyAppTask"
     },
     "DeploymentConfiguration": {
       "MaximumPercent": "200",
@@ -106,10 +108,10 @@
     "DesiredCount": 4,
     "LoadBalancers": [
       {
-        "ContainerName": "books",
+        "ContainerName": "myapp",
         "ContainerPort": "443",
         "TargetGroupArn": {
-          "Ref": "BooksTargetGroup"
+          "Ref": "MyAppTargetGroup"
         }
       }
     ],
@@ -121,9 +123,6 @@
     ],
     "Role": {
       "Ref": "ServiceRole"
-    },
-    "TaskDefinition": {
-      "Ref": "BooksTask"
     }
   }
 }

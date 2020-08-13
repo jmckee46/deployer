@@ -15,7 +15,7 @@
         ],
         "Essential": true,
         "Image": {
-          "Fn::Sub": "${SlDockerRegistry}/${SlStackName}-migrator:${SlGitSha}"
+          "Fn::Sub": "${DeDockerRegistry}/${DeStackName}-migrator:${DeGitSha}"
         },
         "LogConfiguration": {
           {{{ template "task-log-configuration" }}}

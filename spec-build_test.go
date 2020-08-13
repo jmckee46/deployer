@@ -8,26 +8,16 @@ import (
 )
 
 func TestCurrentSha(t *testing.T) {
-	// keytext := os.Getenv("DE_PASS_PHRASE")
-	// key := encrypt.StringToByte(keytext)
-
-	// plaintext := "now is the time for all good men to come to the aid of their country!"
-	// cyphertext, err := encrypt.Encrypt([]byte(plaintext), key)
-	// if err != nil {
-	// 	fmt.Println("err:", err)
-	// }
-	// fmt.Println("cyphertext:", string(cyphertext))
-
-	// returnedText, err := encrypt.Decrypt(cyphertext, key)
-	// if err != nil {
-	// 	fmt.Println("err:", err)
-	// }
-	// fmt.Println("returnedText:", string(returnedText))
-
-	err := awsfuncs.Deploy()
+	state := awsfuncs.NewState()
+	err := awsfuncs.PrepareStackTemplate(state)
 	if err != nil {
 		fmt.Println("err:", err)
 	}
+
+	// err := awsfuncs.Deploy()
+	// if err != nil {
+	// 	fmt.Println("err:", err)
+	// }
 
 	// err := awsfuncs.GetTlsFilesFromS3()
 	// state := awsfuncs.NewState()

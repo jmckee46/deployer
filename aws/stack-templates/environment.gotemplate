@@ -32,7 +32,7 @@
   }
 },
 {
-  "Name": "SL_MIGRATIONS_PGHOST",
+  "Name": "DE_MIGRATIONS_PGHOST",
   "Value": {
     "Fn::GetAtt": [
       "MigrationsPostgres",
@@ -41,9 +41,9 @@
   }
 },
 {
-  "Name": "SL_MIGRATIONS_PGPASSWORD",
+  "Name": "DE_MIGRATIONS_PGPASSWORD",
   "Value": {
-    "Ref": "SlMigrationsPgPassword"
+    "Ref": "DeMigrationsPgPassword"
   }
 },
 {
@@ -59,41 +59,41 @@
   "Value": "UTC"
 },
 {
-  "Name": "SL_STACK_NAME",
+  "Name": "DE_STACK_NAME",
   "Value": {
     "Ref": "AWS::StackName"
   }
 },
 {
-  "Name": "SL_GIT_SHA",
+  "Name": "DE_GIT_SHA",
   "Value": {
-    "Ref": "SlGitSha"
+    "Ref": "DeGitSha"
   }
 },
 {
-  "Name": "SL_LOCAL",
+  "Name": "DE_LOCAL",
   "Value": "false"
 },
 {
-  "Name": "SL_LOAD_BALANCER_HOSTNAME",
+  "Name": "DE_LOAD_BALANCER_HOSTNAME",
   "Value": {
-    "Ref": "SlLoadBalancerHostname"
+    "Ref": "DeLoadBalancerHostname"
   }
 },
 {
-  "Name": "SL_LOAD_BALANCER_SCHEME",
+  "Name": "DE_LOAD_BALANCER_SCHEME",
   "Value": "https"
 },
 {
-  "Name": "SL_LOG_COLORIZATION",
+  "Name": "DE_LOG_COLORIZATION",
   "Value": "false"
 },
 {
-  "Name": "SL_LOG_DEBUG_MESSAGES",
+  "Name": "DE_LOG_DEBUG_MESSAGES",
   "Value": "false"
 },
 {
-  "Name": "SL_LOG_SERIALIZATION",
+  "Name": "DE_LOG_SERIALIZATION",
   "Value": "json-compact"
 }
 {{{end}}}
