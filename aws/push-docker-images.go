@@ -12,7 +12,7 @@ func PushDockerImages(state *State) flaw.Flaw {
 	fmt.Println("  pushing docker images to ECR...")
 
 	// log docker into ecr registry
-	err := docker.Login(state)
+	err := docker.Login(state.GetDockerRegistry())
 	if err != nil {
 		return err
 	}

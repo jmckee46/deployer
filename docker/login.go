@@ -5,12 +5,11 @@ import (
 	"os"
 	"os/exec"
 
-	awsfunc "github.com/jmckee46/deployer/aws"
 	"github.com/jmckee46/deployer/flaw"
 )
 
-// Login
-func Login(state *awsfunc.State) flaw.Flaw {
+// Login logs docker into ecr registry
+func Login(dockerRegistry string) flaw.Flaw {
 	// get login password
 	cmd := exec.Command(
 		"aws",
@@ -33,7 +32,7 @@ func Login(state *awsfunc.State) flaw.Flaw {
 		"AWS",
 		"--password",
 		string(password),
-		state.GetDockerRegistry(),
+		dockerRegistry,
 	)
 	_, err = cmd.CombinedOutput()
 	if err != nil {
