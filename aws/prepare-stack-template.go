@@ -9,7 +9,7 @@ import (
 )
 
 // PrepareStackTemplate converts a template file to a string
-func PrepareStackTemplate(state *state) flaw.Flaw {
+func PrepareStackTemplate(state *State) flaw.Flaw {
 	fmt.Println("Preparing stack...")
 
 	// render stack

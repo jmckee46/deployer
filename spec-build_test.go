@@ -5,11 +5,12 @@ import (
 	"testing"
 
 	"github.com/jmckee46/deployer/aws"
+	"github.com/jmckee46/deployer/docker"
 )
 
 func TestCurrentSha(t *testing.T) {
 	state := awsfuncs.NewState()
-	err := awsfuncs.PrepareStackTemplate(state)
+	err := docker.Login(state)
 	if err != nil {
 		fmt.Println("err:", err)
 	}

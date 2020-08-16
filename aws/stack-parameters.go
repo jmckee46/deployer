@@ -10,7 +10,7 @@ import (
 )
 
 // StackParameters returns the stack parameters required to create/update a stack
-func StackParameters(state *state) flaw.Flaw {
+func StackParameters(state *State) flaw.Flaw {
 	fmt.Println("  gathering stack parameters...")
 
 	arn, err := GetAcmCertificateArn()

@@ -11,7 +11,7 @@ import (
 )
 
 // RenderStackTemplate assembles the various stack templates into one
-func RenderStackTemplate(state *state) flaw.Flaw {
+func RenderStackTemplate(state *State) flaw.Flaw {
 	fmt.Println("  rendering stack template...")
 	// make new branch directory in artifacts
 	branchName := filepath.Join(

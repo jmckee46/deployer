@@ -11,7 +11,7 @@ import (
 )
 
 // ValidateStackTemplate validates the stack template
-func ValidateStackTemplate(state *state) flaw.Flaw {
+func ValidateStackTemplate(state *State) flaw.Flaw {
 	fmt.Println("  validating stack template...")
 
 	// get aws client

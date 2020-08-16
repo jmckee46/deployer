@@ -12,7 +12,7 @@ import (
 )
 
 // PutStackParametersInS3 puts the stackParametersState in S3
-func PutStackParametersInS3(state *state) flaw.Flaw {
+func PutStackParametersInS3(state *State) flaw.Flaw {
 	fmt.Println("  putting stack parameters in S3...")
 
 	// marshal the stack parameters

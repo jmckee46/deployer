@@ -13,7 +13,7 @@ import (
 // CloudFormation supports the Fn::If intrinsic function in the metadata attribute, update policy
 // attribute, and property values in the Resources section and Outputs sections of a template."
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html
-func SetDeletionPolicy(state *state) flaw.Flaw {
+func SetDeletionPolicy(state *State) flaw.Flaw {
 	fmt.Println("  setting database deletion policy...")
 
 	// open template

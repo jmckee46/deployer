@@ -6,7 +6,7 @@ import (
 )
 
 // MasterStackExists determines if the master stack exists
-func MasterStackExists(state *state) bool {
+func MasterStackExists(state *State) bool {
 
 	err := DescribeStack("master", state)
 	if err != nil {

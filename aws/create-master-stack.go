@@ -9,7 +9,7 @@ import (
 )
 
 // CreateMasterStack creates the initial master stack
-func CreateMasterStack(state *state) flaw.Flaw {
+func CreateMasterStack(state *State) flaw.Flaw {
 	// get aws client
 	cloud := state.AWSClient.Cloudform
 

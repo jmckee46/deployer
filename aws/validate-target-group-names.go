@@ -11,7 +11,7 @@ import (
 )
 
 // ValidateTargetGroupNames ensures target group names are less than 32 characters
-func ValidateTargetGroupNames(state *state) flaw.Flaw {
+func ValidateTargetGroupNames(state *State) flaw.Flaw {
 	fmt.Println("  validating target group names...")
 
 	// open template

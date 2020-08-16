@@ -10,7 +10,7 @@ import (
 )
 
 // PutFileInS3 uploads a single file to the S3 root bucket
-func PutFileInS3(state *state, s3Path string, localFilename string) flaw.Flaw {
+func PutFileInS3(state *State, s3Path string, localFilename string) flaw.Flaw {
 	fmt.Println("  putting file in S3...")
 
 	// get aws client

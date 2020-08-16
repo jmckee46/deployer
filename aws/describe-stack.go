@@ -6,7 +6,7 @@ import (
 )
 
 // DescribeStack
-func DescribeStack(stackName string, state *state) error {
+func DescribeStack(stackName string, state *State) error {
 	// get aws client
 	cloud := state.AWSClient.Cloudform
 

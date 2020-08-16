@@ -4,6 +4,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/acm"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
+	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/jmckee46/deployer/flaw"
 	"github.com/jmckee46/deployer/halt"
@@ -14,6 +15,7 @@ type Client struct {
 	Cloudform *cloudformation.CloudFormation
 	S3        *s3.S3
 	ACM       *acm.ACM
+	ECR       *ecr.ECR
 }
 
 func new() *Client {
@@ -25,6 +27,7 @@ func new() *Client {
 		Cloudform: cloudformation.New(awsSession()),
 		S3:        s3.New(awsSession()),
 		ACM:       acm.New(awsSession()),
+		ECR:       ecr.New(awsSession()),
 	}
 
 	return client
