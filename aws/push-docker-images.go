@@ -18,13 +18,13 @@ func PushDockerImages(state *State) flaw.Flaw {
 	}
 
 	// create ecr repositories
-	err = CreateRepositories(state)
+	err = CreateEcrRepositories(state)
 	if err != nil {
 		return err
 	}
 
 	// push docker images
-	err = docker.Push(state)
+	err = docker.Push(state.ImagesToDeploy, state.DockerRegistry)
 	if err != nil {
 		return err
 	}

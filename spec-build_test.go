@@ -1,19 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"testing"
-
-	"github.com/jmckee46/deployer/aws"
-	"github.com/jmckee46/deployer/docker"
 )
 
 func TestCurrentSha(t *testing.T) {
-	state := awsfuncs.NewState()
-	err := docker.Login(state)
-	if err != nil {
-		fmt.Println("err:", err)
-	}
+	// state := awsfuncs.NewState()
+	// err := docker.Login(state)
+	// if err != nil {
+	// 	fmt.Println("err:", err)
+	// }
 
 	// err := awsfuncs.Deploy()
 	// if err != nil {

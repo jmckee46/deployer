@@ -15,6 +15,7 @@ type State struct {
 	AWSAccountID              string
 	AWSClient                 *awsclient.Client
 	DockerRegistry            string
+	ImagesToDeploy            []string
 	RenderedTemplateLocal     string
 	RenderedTemplateS3        string
 	RenderedTemplateS3URL     string
