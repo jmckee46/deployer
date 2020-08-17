@@ -1,7 +1,6 @@
 package images
 
 import (
-	"fmt"
 	"os/exec"
 	"path/filepath"
 	"strings"
@@ -11,7 +10,6 @@ import (
 
 // List returns a slice of all docker image names that are tagged to deploy
 func List() ([]string, flaw.Flaw) {
-	fmt.Println("listing images...")
 
 	cmd := exec.Command(
 		"docker",

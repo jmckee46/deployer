@@ -7,7 +7,7 @@ import (
 	"github.com/jmckee46/deployer/flaw"
 )
 
-// PushDockerImages pushes docker images to ecr
+// PushDockerImages prepares and pushes docker images to ecr
 func PushDockerImages(state *State) flaw.Flaw {
 	fmt.Println("  pushing docker images to ECR...")
 

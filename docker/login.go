@@ -10,6 +10,7 @@ import (
 
 // Login logs docker into ecr registry
 func Login(dockerRegistry string) flaw.Flaw {
+	fmt.Println("    logging docker into ECR...")
 	// get login password
 	cmd := exec.Command(
 		"aws",

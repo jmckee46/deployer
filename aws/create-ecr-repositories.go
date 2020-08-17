@@ -14,7 +14,7 @@ import (
 
 // CreateEcrRepositories creates ecr repositories
 func CreateEcrRepositories(state *State) flaw.Flaw {
-	fmt.Println("  creating ECR repositories...")
+	fmt.Println("    creating ECR repositories...")
 
 	// get aws client
 	ecrCli := state.AWSClient.ECR
@@ -41,7 +41,6 @@ func CreateEcrRepositories(state *State) flaw.Flaw {
 			if aerr, ok := err.(awserr.Error); ok {
 				switch aerr.Code() {
 				case ecr.ErrCodeRepositoryAlreadyExistsException:
-					fmt.Println(ecr.ErrCodeRepositoryAlreadyExistsException, aerr.Error())
 					return nil
 				default:
 					fmt.Println(aerr.Error())
@@ -51,8 +50,6 @@ func CreateEcrRepositories(state *State) flaw.Flaw {
 				return flaw.From(err)
 			}
 		}
-		// fmt.Println("result:", result)
-
 	}
 
 	return nil
