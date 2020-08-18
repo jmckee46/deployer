@@ -10,7 +10,7 @@ import (
 
 // PrepareStackTemplate converts a template file to a string
 func PrepareStackTemplate(state *State) flaw.Flaw {
-	fmt.Println("Preparing stack...")
+	fmt.Println("Preparing stack template...")
 
 	// render stack
 	err := RenderStackTemplate(state)

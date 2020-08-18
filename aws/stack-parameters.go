@@ -47,13 +47,15 @@ func StackParameters(state *State) flaw.Flaw {
 		ParameterValue: aws.String(os.Getenv("DE_SUBNET_CIDR_BLOCKS")),
 	}
 	tlsCertificationArnParameter := cloudformation.Parameter{
-		ParameterKey:   aws.String("AnTlsCertificateArn"),
+		ParameterKey:   aws.String("DeTlsCertificateArn"),
 		ParameterValue: aws.String(arn),
 	}
 	VpcCidrBaseParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("AnVpcCidrBase"),
 		ParameterValue: aws.String(os.Getenv("DE_VPC_CIDR_BASE")),
 	}
+	// TODO: WHY DOES CLOUDFORMATION THINK THE FOLLOWING ARE NOT SET?
+	// DeDockerRegistry, DeLoadBalancerHostname, PostgresUser, DeBranchName, DeGitSha, PostgresPassword, DeStackName, DeVpcCidrBase, DeSubnetCidrBlocks, DeMigrationsPgPassword, DeLogglyToken
 
 	state.StackParametersStackState = []*cloudformation.Parameter{
 		&rootBucketParameter,

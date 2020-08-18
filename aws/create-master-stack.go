@@ -1,6 +1,7 @@
 package awsfuncs
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -10,6 +11,7 @@ import (
 
 // CreateMasterStack creates the initial master stack
 func CreateMasterStack(state *State) flaw.Flaw {
+	fmt.Println("  creating master stack...")
 	// get aws client
 	cloud := state.AWSClient.Cloudform
 

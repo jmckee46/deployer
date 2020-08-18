@@ -9,6 +9,7 @@ import (
 
 // TransitionStack
 func TransitionStack(state *State) flaw.Flaw {
+	fmt.Println("Transition stack...")
 	if NotOKToDeploy() {
 		fmt.Println("not deploying to aws: not on master and HEAD comment does not end [deploy]")
 		return nil
