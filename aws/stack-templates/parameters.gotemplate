@@ -1,8 +1,4 @@
 {{{define "parameters"}}}
-"DeBranchName": {
-  "Description": "branch name",
-  "Type": "String"
-},
 "DeDockerRegistry": {
   "Description": "docker repo host",
   "Type": "String"
@@ -44,7 +40,7 @@
   "Type": "String"
 },
 "DeMigrationsPgPassword": {
-  "Description": "Subledger Migrations PGPASSWORD",
+  "Description": "Deployer Migrations PGPASSWORD",
   "Type": "String"
 }
 {{{end}}}

@@ -34,26 +34,6 @@
             }
           }
         ]
-      },
-      {
-        "Fn::Select": [
-          "2",
-          {
-            "Fn::GetAZs": {
-              "Ref": "AWS::Region"
-            }
-          }
-        ]
-      },
-      {
-        "Fn::Select": [
-          "3",
-          {
-            "Fn::GetAZs": {
-              "Ref": "AWS::Region"
-            }
-          }
-        ]
       }
     ],
     "Cooldown": "3600",
@@ -84,12 +64,6 @@
       },
       {
         "Ref": "Subnet1"
-      },
-      {
-        "Ref": "Subnet2"
-      },
-      {
-        "Ref": "Subnet3"
       }
     ]
   }

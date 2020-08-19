@@ -20,27 +20,5 @@
       "Ref": "RouteTable"
     }
   }
-},
-"SubnetRouteTableAssociation2": {
-  "Type": "AWS::EC2::SubnetRouteTableAssociation",
-  "Properties": {
-    "SubnetId": {
-      "Ref": "Subnet2"
-    },
-    "RouteTableId": {
-      "Ref": "RouteTable"
-    }
-  }
-},
-"SubnetRouteTableAssociation3": {
-  "Type": "AWS::EC2::SubnetRouteTableAssociation",
-  "Properties": {
-    "SubnetId": {
-      "Ref": "Subnet3"
-    },
-    "RouteTableId": {
-      "Ref": "RouteTable"
-    }
-  }
 }
 {{{end}}}
