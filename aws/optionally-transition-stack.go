@@ -28,7 +28,11 @@ func OptionallyTransitionStack(state *State) flaw.Flaw {
 
 	if os.Getenv("DE_STACK_NAME") == "master" {
 		// encrypt and store stack parameters in s3
-		flawErr := PutStackParametersInS3(state)
+		flawErr := StackParameters(state)
+		if flawErr != nil {
+			return flawErr
+		}
+		flawErr = PutStackParametersInS3(state)
 		if flawErr != nil {
 			return flawErr
 		}

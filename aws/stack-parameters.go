@@ -18,10 +18,6 @@ func StackParameters(state *State) flaw.Flaw {
 		return err
 	}
 
-	rootBucketParameter := cloudformation.Parameter{
-		ParameterKey:   aws.String("DeRootBucket"),
-		ParameterValue: aws.String(os.Getenv("DE_ROOT_BUCKET")),
-	}
 	gitShaParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeGitSha"),
 		ParameterValue: aws.String(os.Getenv("DE_GIT_SHA")),
@@ -30,14 +26,10 @@ func StackParameters(state *State) flaw.Flaw {
 		ParameterKey:   aws.String("DeLoadBalancerHostname"),
 		ParameterValue: aws.String(os.Getenv("DE_LOAD_BALANCER_HOSTNAME")),
 	}
-	// logglyTokenParameter := cloudformation.Parameter{
-	// 	ParameterKey:   aws.String("DeLogglyToken"),
-	// 	ParameterValue: aws.String(os.Getenv("DE_LOGGLY_TOKEN")),
+	// stackBucketParameter := cloudformation.Parameter{
+	// 	ParameterKey:   aws.String("DeStackBucket"),
+	// 	ParameterValue: aws.String(os.Getenv("DE_STACK_BUCKET")),
 	// }
-	stackBucketParameter := cloudformation.Parameter{
-		ParameterKey:   aws.String("DeStackBucket"),
-		ParameterValue: aws.String(os.Getenv("DE_STACK_BUCKET")),
-	}
 	stackNameParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeStackName"),
 		ParameterValue: aws.String(os.Getenv("DE_STACK_NAME")),
@@ -50,22 +42,24 @@ func StackParameters(state *State) flaw.Flaw {
 		ParameterKey:   aws.String("DeTlsCertificateArn"),
 		ParameterValue: aws.String(arn),
 	}
-	VpcCidrBaseParameter := cloudformation.Parameter{
-		ParameterKey:   aws.String("AnVpcCidrBase"),
+	vpcCidrBaseParameter := cloudformation.Parameter{
+		ParameterKey:   aws.String("DeVpcCidrBase"),
 		ParameterValue: aws.String(os.Getenv("DE_VPC_CIDR_BASE")),
 	}
-	// TODO: WHY DOES CLOUDFORMATION THINK THE FOLLOWING ARE NOT SET?
-	// DeDockerRegistry, DeLoadBalancerHostname, PostgresUser, DeBranchName, DeGitSha, PostgresPassword, DeStackName, DeVpcCidrBase, DeSubnetCidrBlocks, DeMigrationsPgPassword, DeLogglyToken
+	dockerRegistry := cloudformation.Parameter{
+		ParameterKey:   aws.String("DeDockerRegistry"),
+		ParameterValue: aws.String(state.GetDockerRegistry()),
+	}
 
 	state.StackParametersStackState = []*cloudformation.Parameter{
-		&rootBucketParameter,
 		&gitShaParameter,
 		&loadBalancerHostnameParameter,
-		&stackBucketParameter,
+		// &stackBucketParameter,
 		&stackNameParameter,
 		&subnetCidrBlockParameter,
 		&tlsCertificationArnParameter,
-		&VpcCidrBaseParameter,
+		&vpcCidrBaseParameter,
+		&dockerRegistry,
 	}
 
 	migrationsPgPasswordParameter := cloudformation.Parameter{
@@ -80,11 +74,16 @@ func StackParameters(state *State) flaw.Flaw {
 		ParameterKey:   aws.String("PostgresPassword"),
 		ParameterValue: aws.String(os.Getenv("POSTGRES_PASSWORD")),
 	}
+	logglyTokenParameter := cloudformation.Parameter{
+		ParameterKey:   aws.String("DeLogglyToken"),
+		ParameterValue: aws.String(os.Getenv("DE_LOGGLY_TOKEN")),
+	}
 
 	state.StackParametersPasswords = []*cloudformation.Parameter{
 		&migrationsPgPasswordParameter,
 		&postgresUserParameter,
 		&postgresPasswordParameter,
+		&logglyTokenParameter,
 	}
 
 	state.StackParametersAll = append(state.StackParametersPasswords, state.StackParametersStackState...)
