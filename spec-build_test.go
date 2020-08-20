@@ -1,10 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"testing"
-
-	"github.com/jmckee46/deployer/aws"
 )
 
 func TestCurrentSha(t *testing.T) {
@@ -14,10 +11,10 @@ func TestCurrentSha(t *testing.T) {
 	// 	fmt.Println("err:", err)
 	// }
 
-	err := awsfuncs.Deploy()
-	if err != nil {
-		fmt.Println("err:", err)
-	}
+	// err := awsfuncs.Deploy()
+	// if err != nil {
+	// 	fmt.Println("err:", err)
+	// }
 
 	// err := awsfuncs.GetTlsFilesFromS3()
 	// state := awsfuncs.NewState()

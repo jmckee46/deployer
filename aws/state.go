@@ -22,6 +22,8 @@ type State struct {
 	StackParametersAll        []*cloudformation.Parameter
 	StackParametersStackState []*cloudformation.Parameter
 	StackParametersPasswords  []*cloudformation.Parameter
+	SubnetCidrBlocks          string
+	VpcCidrBase               string
 }
 
 func NewState() *State {

@@ -1,15 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"testing"
+
+	"github.com/jmckee46/deployer/aws"
 )
 
 func TestPush(t *testing.T) {
-	// state := awsfuncs.NewState()
+	state := awsfuncs.NewState()
 
-	// err := awsfuncs.PushDockerImages(state)
-	// if err != nil {
-	// 	fmt.Println("err:", err)
-	// }
+	err := awsfuncs.InitializeCidrVariables(state)
+	if err != nil {
+		fmt.Println("err:", err)
+	}
 
 }
