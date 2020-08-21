@@ -6,8 +6,8 @@ import (
 	"github.com/jmckee46/deployer/flaw"
 )
 
-// DescribeVpcs
-func VpcCiderBaseChooser(state *State) flaw.Flaw {
+// VpcCidrBaseChooser initializes the vpcCidrBase
+func VpcCidrBaseChooser(state *State) flaw.Flaw {
 	output, err := DescribeVpcs(state)
 	if err != nil {
 		return err

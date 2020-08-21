@@ -30,28 +30,6 @@
     ]
   }
 },
-"DeSubnetCidrBlock2": {
-  "Description": "subnet CIDR block 2",
-  "Value": {
-    "Fn::Select": [
-      "2",
-      {
-        "Ref": "DeSubnetCidrBlocks"
-      }
-    ]
-  }
-},
-"DeSubnetCidrBlock3": {
-  "Description": "subnet CIDR block 3",
-  "Value": {
-    "Fn::Select": [
-      "3",
-      {
-        "Ref": "DeSubnetCidrBlocks"
-      }
-    ]
-  }
-},
 "MigrationsPostgresHostname": {
   "Description": "migrator postgres hostname",
   "Value": {

@@ -36,7 +36,7 @@ func StackParameters(state *State) flaw.Flaw {
 	}
 	subnetCidrBlockParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeSubnetCidrBlocks"),
-		ParameterValue: aws.String(os.Getenv("DE_SUBNET_CIDR_BLOCKS")),
+		ParameterValue: aws.String(state.SubnetCidrBlocks),
 	}
 	tlsCertificationArnParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeTlsCertificateArn"),
@@ -44,7 +44,7 @@ func StackParameters(state *State) flaw.Flaw {
 	}
 	vpcCidrBaseParameter := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeVpcCidrBase"),
-		ParameterValue: aws.String(os.Getenv("DE_VPC_CIDR_BASE")),
+		ParameterValue: aws.String(state.VpcCidrBase),
 	}
 	dockerRegistry := cloudformation.Parameter{
 		ParameterKey:   aws.String("DeDockerRegistry"),

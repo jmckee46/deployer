@@ -7,7 +7,7 @@
     "IamInstanceProfile": {
       "Ref": "InstanceProfile"
     },
-    "ImageId": "ami-13401669",
+    "ImageId": "ami-0ae9c47c9576e2f28",
     "InstanceMonitoring": "true",
     "InstanceType": "t2.small",
     "KeyName": "sledger",

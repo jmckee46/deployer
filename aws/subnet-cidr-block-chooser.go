@@ -7,7 +7,7 @@ import (
 	"github.com/jmckee46/deployer/flaw"
 )
 
-// DescribeVpcs
+// SubnetCidrBlockChooser initializes the subnetCidrBlocks
 func SubnetCidrBlockChooser(state *State) flaw.Flaw {
 	cidrSlice := strings.Split(state.VpcCidrBase, ".")
 	thirdByte := cidrSlice[2]

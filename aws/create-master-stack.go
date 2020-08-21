@@ -2,33 +2,36 @@ package awsfuncs
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/cloudformation"
 	"github.com/jmckee46/deployer/flaw"
 )
 
 // CreateMasterStack creates the initial master stack
 func CreateMasterStack(state *State) flaw.Flaw {
 	fmt.Println("  creating master stack...")
-	// get aws client
-	cloud := state.AWSClient.Cloudform
 
-	// create input struct
-	input := &cloudformation.CreateStackInput{
-		Capabilities: []*string{aws.String("CAPABILITY_IAM"), aws.String("CAPABILITY_NAMED_IAM")},
-		Parameters:   state.StackParametersAll,
-		StackName:    aws.String(os.Getenv("DE_STACK_NAME")),
-		TemplateURL:  aws.String(state.RenderedTemplateS3URL),
+	// initialize cidr variables
+	flawErr := InitializeCidrVariables(state)
+	if flawErr != nil {
+		return flawErr
 	}
 
+	// encrypt and store stack parameters in s3
+	flawErr = StackParameters(state)
+	if flawErr != nil {
+		return flawErr
+	}
+	flawErr = PutStackParametersInS3(state)
+	if flawErr != nil {
+		return flawErr
+	}
+
+	fmt.Println("stack parameters:", state.StackParametersAll)
 	// create master stack
-	_, err := cloud.CreateStack(input)
-	if err != nil {
-		return flaw.From(err)
+	flawErr = CreateStack(state)
+	if flawErr != nil {
+		return flawErr
 	}
-	// fmt.Println("\n  template validation output:", output)
 
 	return nil
 }
