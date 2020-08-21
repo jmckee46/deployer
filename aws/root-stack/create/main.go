@@ -12,8 +12,15 @@ import (
 )
 
 func main() {
+	fmt.Println("creating key-pair...")
+
+	// create key pair
+	flawErr := createKeyPair()
+	if flawErr != nil {
+		logger.Panic("create-root-stack", flawErr)
+	}
+
 	fmt.Println("creating root stack...")
-	fmt.Println("")
 
 	// get aws client
 	cloudForm := awsclient.FromPool().Cloudform
