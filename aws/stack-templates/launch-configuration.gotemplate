@@ -10,7 +10,7 @@
     "ImageId": "ami-0ae9c47c9576e2f28",
     "InstanceMonitoring": "true",
     "InstanceType": "t2.small",
-    "KeyName": "sledger",
+    "KeyName": "depler",
     "SecurityGroups": [
       {
         "Ref": "PrivateSecurityGroup"
